@@ -1,0 +1,752 @@
+{
+  "common": {
+    "navigation": {
+      "home": "Home",
+      "about": "About",
+      "community": "Community",
+      "incidents": "Incidents",
+      "legalHelp": "Legal Help",
+      "resources": "Resources",
+      "support": "Support",
+      "download": "Download",
+      "contact": "Contact",
+      "menu": "Menu"
+    },
+    "buttons": {
+      "contact": "Contact",
+      "learnMore": "Learn More",
+      "submit": "Submit",
+      "cancel": "Cancel",
+      "save": "Save",
+      "delete": "Delete",
+      "edit": "Edit"
+    },
+    "footer": {
+      "copyright": "© 2024 DESIST! All rights reserved.",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service"
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "Join Our Community",
+      "description": "Be part of a movement that's making a real difference. Together, we can create stronger, safer communities for everyone.",
+      "volunteer": "Volunteer",
+      "supportUs": "Support Us",
+      "joinMovement": "Join the Movement",
+      "stats": {
+        "volunteers": "Volunteers",
+        "communities": "Communities",
+        "impact": "Impact"
+      }
+    },
+    "impact": {
+      "title": "Our Impact",
+      "description": "Together, we're making a real difference in our communities",
+      "stats": {
+        "members": {
+          "value": "10K+",
+          "label": "Community Members"
+        },
+        "partners": {
+          "value": "50+",
+          "label": "Partner Organizations"
+        },
+        "supported": {
+          "value": "100K+",
+          "label": "People Supported"
+        },
+        "support": {
+          "value": "24/7",
+          "label": "Community Support"
+        }
+      }
+    },
+    "volunteer": {
+      "title": "Volunteer Opportunities",
+      "description": "Make a difference in your community through various volunteer roles",
+      "features": {
+        "outreach": {
+          "title": "Community Outreach",
+          "description": "Connect with and support community members in need.",
+          "link": "Learn More"
+        },
+        "events": {
+          "title": "Event Support",
+          "description": "Help organize and run community events and workshops.",
+          "link": "View Events"
+        },
+        "resources": {
+          "title": "Resource Distribution",
+          "description": "Assist in distributing resources to community members.",
+          "link": "Get Started"
+        }
+      }
+    },
+    "partner": {
+      "title": "Partnership Opportunities",
+      "description": "Join forces with us to create lasting change",
+      "features": {
+        "organizations": {
+          "title": "Organization Partnerships",
+          "description": "Join forces with like-minded organizations to amplify impact.",
+          "link": "Partner With Us"
+        },
+        "sharing": {
+          "title": "Resource Sharing",
+          "description": "Share resources and expertise to strengthen our community.",
+          "link": "Share Resources"
+        },
+        "initiatives": {
+          "title": "Joint Initiatives",
+          "description": "Collaborate on projects that drive meaningful change.",
+          "link": "Start Project"
+        }
+      }
+    },
+    "mobile": {
+      "title": "Join the Movement on Mobile",
+      "description": "Download our app to stay connected with the community and access resources on the go.",
+      "download": "Download App",
+      "learnMore": "Learn More"
+    },
+    "news": {
+      "title": "Latest News",
+      "description": "Stay informed about important developments affecting our community. Read the latest news and updates.",
+      "viewAll": "View All News",
+      "readMore": "Read More →"
+    }
+  },
+  "community": {
+    "hero": {
+      "title": "Community Hub",
+      "description": "Join forces with your local community to create safer neighborhoods and support those in need.",
+      "joinButton": "Join Us",
+      "impactTitle": "Community Impact",
+      "stats": {
+        "reports": "Active Reports",
+        "members": "Members",
+        "events": "Events"
+      }
+    },
+    "stats": {
+      "title": "Community Impact",
+      "description": "Together, we're building stronger and safer communities",
+      "activeReports": "Active Reports",
+      "communityMembers": "Community Members",
+      "localEvents": "Local Events",
+      "supportAvailable": "Support Available"
+    },
+    "forum": {
+      "title": "Community Forum",
+      "description": "Join the conversation and share your experiences",
+      "viewButton": "View Full Forum",
+      "noPosts": "No posts yet. Be the first to start a conversation!",
+      "categories": {
+        "support": "Support Groups",
+        "resources": "Resource Sharing",
+        "stories": "Success Stories",
+        "updates": "Community Updates"
+      }
+    },
+    "events": {
+      "title": "Local Events & Meetups",
+      "types": {
+        "title": "Types of Events",
+        "support": {
+          "title": "Support Groups",
+          "description": "Regular meetings for sharing and healing"
+        },
+        "workshop": {
+          "title": "Workshops",
+          "description": "Educational sessions on safety and empowerment"
+        },
+        "community": {
+          "title": "Community Actions",
+          "description": "Organized activities for social change"
+        },
+        "social": {
+          "title": "Social Gatherings",
+          "description": "Casual meetups to build connections"
+        }
+      },
+      "app": {
+        "title": "📱 Get More with Our App",
+        "features": {
+          "notifications": "Real-time event notifications",
+          "rsvp": "RSVP and attendance tracking",
+          "connect": "Connect with event organizers",
+          "discovery": "Location-based event discovery"
+        }
+      },
+      "host": {
+        "title": "🤝 Host an Event",
+        "description": "Want to organize a community event? Submit a request to:",
+        "benefits": {
+          "create": "Create and manage your event",
+          "reach": "Reach local community members",
+          "support": "Get support from our team",
+          "resources": "Access event planning resources"
+        },
+        "button": "Request to Host an Event"
+      }
+    },
+    "appDownload": {
+      "title": "Take Action Anywhere",
+      "description": "Download the DESIST app to access resources, report incidents, and stay connected with your community.",
+      "features": {
+        "support": {
+          "title": "Instant Support",
+          "description": "24/7 access to emergency resources and support"
+        },
+        "reporting": {
+          "title": "Quick Reporting",
+          "description": "Report incidents and share updates in real-time"
+        },
+        "network": {
+          "title": "Community Network",
+          "description": "Connect with allies and support networks nearby"
+        }
+      },
+      "stores": {
+        "apple": {
+          "download": "Download on the",
+          "name": "App Store"
+        },
+        "google": {
+          "download": "Get it on",
+          "name": "Google Play"
+        }
+      },
+      "stats": {
+        "downloads": {
+          "value": "100K+",
+          "label": "Downloads"
+        },
+        "rating": {
+          "value": "4.8★",
+          "label": "Rating"
+        },
+        "cities": {
+          "value": "50+",
+          "label": "Cities"
+        }
+      }
+    }
+  },
+  "incidents": {
+    "all": {
+      "title": "All Incidents",
+      "back": "Back to Overview",
+      "search": "Search incidents...",
+      "sort": {
+        "newest": "Newest First",
+        "oldest": "Oldest First",
+        "type": "By Type"
+      },
+      "filter": {
+        "all": "All Incidents",
+        "active": "Active",
+        "resolved": "Resolved",
+        "investigating": "Under Investigation"
+      },
+      "views": {
+        "list": "List",
+        "map": "Map"
+      },
+      "previous": "Previous",
+      "next": "Next",
+      "page": "Page",
+      "of": "of",
+      "centerOnMe": "Center on Me",
+      "viewAll": "View All",
+      "yourLocation": "Your Location"
+    },
+    "hero": {
+      "title": "Incident Reports",
+      "description": "Together we can make our community safer. Report incidents and stay informed about what's happening in your area.",
+      "reportButton": "Report Incident"
+    },
+    "stats": {
+      "totalReports": "Total Reports"
+    },
+    "features": {
+      "title": "Reporting Features",
+      "description": "Powerful tools to help you report and track incidents",
+      "anonymous": {
+        "title": "Anonymous Reporting",
+        "description": "Submit reports without revealing your identity. Your privacy is our priority."
+      },
+      "mobile": {
+        "title": "Mobile Reporting",
+        "description": "Report incidents on the go using our mobile app."
+      },
+      "location": {
+        "title": "Location Tracking",
+        "description": "Optional location services to help identify incident patterns."
+      },
+      "alerts": {
+        "title": "Real-time Alerts",
+        "description": "Get notified about incidents in your area."
+      },
+      "media": {
+        "title": "Media Upload",
+        "description": "Securely upload photos and videos as evidence."
+      },
+      "updates": {
+        "title": "Community Updates",
+        "description": "Stay informed about incident resolutions and outcomes."
+      }
+    },
+    "recent": {
+      "title": "Recent Incidents",
+      "viewAll": "View All Incidents",
+      "filters": {
+        "all": "All Incidents",
+        "active": "Active",
+        "resolved": "Resolved",
+        "investigating": "Under Investigation"
+      },
+      "views": {
+        "list": "List",
+        "map": "Map"
+      },
+      "location": "Location not specified"
+    },
+    "cta": {
+      "title": "Download Our Mobile App",
+      "description": "Report incidents, receive alerts, and stay connected with your community on the go.",
+      "primary": "Get the App",
+      "secondary": "Learn More"
+    }
+  },
+  "resources": {
+    "hero": {
+      "title": "Community Resources",
+      "description": "Access tools, information, and support networks designed to help you and your community stay informed and empowered.",
+      "viewGuides": "View Guides",
+      "getHelp": "Get Help"
+    },
+    "categories": {
+      "educational": {
+        "title": "Educational Resources",
+        "items": {
+          "harassment": "Understanding harassment",
+          "warning": "Recognizing warning signs",
+          "prevention": "Prevention strategies"
+        },
+        "button": "Learn More"
+      },
+      "legal": {
+        "title": "Legal Resources",
+        "items": {
+          "rights": "Know your rights",
+          "assistance": "Legal assistance",
+          "documentation": "Documentation guides"
+        },
+        "button": "Access Resources"
+      },
+      "support": {
+        "title": "Support Network",
+        "items": {
+          "groups": "Support groups",
+          "counseling": "Counseling services",
+          "events": "Community events"
+        },
+        "button": "Find Support"
+      }
+    },
+    "tools": {
+      "title": "Tools & Downloads",
+      "safety": {
+        "title": "Safety Planning Tools",
+        "items": {
+          "checklist": "Personal safety checklist",
+          "contacts": "Emergency contact templates",
+          "builder": "Safety plan builder"
+        },
+        "button": "Download Tools"
+      },
+      "documentation": {
+        "title": "Documentation Resources",
+        "items": {
+          "templates": "Incident report templates",
+          "evidence": "Evidence collection guides",
+          "samples": "Legal document samples"
+        },
+        "button": "Access Documents"
+      }
+    },
+    "mobile": {
+      "title": "Access Resources Anywhere",
+      "description": "Download our app to access all resources and tools on your mobile device."
+    }
+  },
+  "legal": {
+    "attorney": {
+      "contact": "Contact Attorney",
+      "cases": "cases handled",
+      "languages": "Languages"
+    },
+    "cta": {
+      "title": "Are You an Attorney?",
+      "description": "Join our network and become a featured attorney. Help make a difference in your community while growing your practice.",
+      "primary": "Join Our Network",
+      "secondary": "Learn More"
+    }
+  },
+  "legalHelp": {
+    "hero": {
+      "title": "Legal Help Directory",
+      "description": "Connect with experienced attorneys dedicated to protecting your rights and providing expert legal assistance."
+    },
+    "features": {
+      "title": "Our Partners Legal Services",
+      "description": "Comprehensive legal support tailored to your needs"
+    },
+    "attorneys": {
+      "title": "Our Partners Attorneys",
+      "description": "Connect with experienced attorneys dedicated to protecting your rights and providing expert legal assistance.",
+      "viewAll": "View All Attorneys",
+      "search": "Search by name or specialization...",
+      "contact": "Contact Attorney",
+      "featured": "Featured",
+      "filter": {
+        "all": "All Attorneys",
+        "featured": "Featured"
+      },
+      "noResults": "No attorneys found matching your criteria."
+    },
+    "cta": {
+      "title": "Are You an Attorney?",
+      "description": "Join our network and become a featured attorney. Help make a difference in your community while growing your practice.",
+      "primary": "Join Our Network",
+      "secondary": "Learn More"
+    }
+  },
+  "support": {
+    "hero": {
+      "title": "24/7 Support & Resources",
+      "description": "You're not alone. Get immediate support and access to resources whenever you need them.",
+      "chatButton": "Chat Now",
+      "callButton": "Call Support"
+    },
+    "emergency": {
+      "title": "Emergency Contacts",
+      "services": {
+        "title": "Emergency Services",
+        "number": "911"
+      },
+      "crisis": {
+        "title": "Crisis Hotline",
+        "number": "1-800-555-0000"
+      }
+    },
+    "immediate": {
+      "title": "Immediate Assistance",
+      "description": "Get help right away through these public services",
+      "crisis": {
+        "title": "Crisis Response",
+        "description": "24/7 crisis response available through these public organizations."
+      },
+      "advocacy": {
+        "title": "Advocacy Support",
+        "description": "Professional advocates to help navigate complex situations."
+      },
+      "housing": {
+        "title": "Safe Housing",
+        "description": "Emergency housing and shelter assistance when needed."
+      }
+    },
+    "mobile": {
+      "title": "Support in Your Pocket",
+      "description": "Download our app to access all support services and get help whenever you need it.",
+      "download": "Download App",
+      "learnMore": "Learn More"
+    }
+  },
+  "hero": {
+    "title": {
+      "main": "Your Personal",
+      "highlight": "Safety Guardian"
+    },
+    "description": "Join thousands protecting their communities. Download DESIST now and take control of your safety.",
+    "stores": {
+      "apple": {
+        "download": "Download on the",
+        "name": "App Store"
+      },
+      "google": {
+        "download": "Get it on",
+        "name": "Google Play"
+      }
+    },
+    "stats": {
+      "users": {
+        "value": "100K+",
+        "label": "Active Users"
+      },
+      "rating": {
+        "value": "4.8★",
+        "label": "App Rating"
+      },
+      "cities": {
+        "value": "50+",
+        "label": "Cities"
+      }
+    },
+    "features": {
+      "alerts": {
+        "title": "Real-time Alerts",
+        "description": "Stay informed 24/7"
+      },
+      "response": {
+        "title": "Quick Response",
+        "description": "One-tap assistance"
+      }
+    }
+  },
+  "appFeatures": {
+    "title": "Everything You Need to Stay Safe",
+    "description": "DESIST provides comprehensive safety features designed to protect you and your community",
+    "features": {
+      "protection": {
+        "title": "Real-time Protection",
+        "description": "Get instant alerts about incidents in your area and stay informed about potential risks."
+      },
+      "network": {
+        "title": "Community Network",
+        "description": "Connect with nearby allies and build a strong support network within your community."
+      },
+      "response": {
+        "title": "Emergency Response",
+        "description": "One-tap access to emergency services and quick connection to local support resources."
+      },
+      "resources": {
+        "title": "Safety Resources",
+        "description": "Access a comprehensive library of safety guides, legal resources, and educational content."
+      }
+    },
+    "download": "Download Now"
+  },
+  "notifications": {
+    "title": "Stay Informed in Real-Time",
+    "description": "Get instant notifications about safety concerns in your area. Our advanced alert system keeps you informed and protected 24/7.",
+    "features": {
+      "alerts": {
+        "title": "Instant Alerts",
+        "description": "Real-time notifications about safety concerns"
+      },
+      "location": {
+        "title": "Location-Based",
+        "description": "Targeted alerts for your neighborhood"
+      },
+      "customizable": {
+        "title": "Customizable",
+        "description": "Set your notification preferences"
+      }
+    },
+    "demo": {
+      "alert": {
+        "title": "Safety Alert",
+        "message": "Suspicious activity reported near Downtown area"
+      },
+      "info": {
+        "title": "Community Update",
+        "message": "New safety workshop this weekend"
+      },
+      "success": {
+        "title": "Incident Resolved",
+        "message": "All clear in the neighborhood"
+      }
+    }
+  },
+  "stats": {
+    "title": "Making Communities Safer",
+    "description": "Join thousands of users who trust DESIST to protect what matters most",
+    "metrics": {
+      "users": {
+        "label": "Protected Users",
+        "value": "100000",
+        "suffix": "+"
+      },
+      "incidents": {
+        "label": "Incidents Prevented",
+        "value": "5000",
+        "suffix": "+"
+      },
+      "communities": {
+        "label": "Communities",
+        "value": "250",
+        "suffix": "+"
+      },
+      "satisfaction": {
+        "label": "User Satisfaction",
+        "value": "98",
+        "suffix": "%"
+      }
+    }
+  },
+  "testimonials": {
+    "title": "Trusted by Communities Nationwide",
+    "description": "See how DESIST is making a difference in neighborhoods across the country",
+    "quotes": [
+      {
+        "text": "DESIST has transformed how our neighborhood handles safety concerns. The real-time alerts have made a real difference.",
+        "author": "Sarah Chen",
+        "role": "Community Organizer",
+        "location": "San Francisco, CA"
+      },
+      {
+        "text": "The emergency response feature helped me get immediate assistance when I needed it most. Every community needs this app.",
+        "author": "Marcus Johnson",
+        "role": "Small Business Owner",
+        "location": "Chicago, IL"
+      },
+      {
+        "text": "As a community leader, I've seen firsthand how DESIST brings people together to create safer neighborhoods.",
+        "author": "Lisa Rodriguez",
+        "role": "Neighborhood Watch Coordinator",
+        "location": "Austin, TX"
+      }
+    ],
+    "cta": {
+      "description": "Join thousands of users making their communities safer",
+      "button": "Get Started Today"
+    }
+  },
+  "contact": {
+    "hero": {
+      "title": "Get in Touch",
+      "description": "Have questions or want to get involved? We're here to help. Reach out to our team and become part of our community."
+    },
+    "form": {
+      "title": "Send us a Message",
+      "name": {
+        "label": "Name",
+        "placeholder": "Your name"
+      },
+      "email": {
+        "label": "Email",
+        "placeholder": "your.email@example.com"
+      },
+      "subject": {
+        "label": "Subject",
+        "placeholder": "What is this regarding?"
+      },
+      "message": {
+        "label": "Message",
+        "placeholder": "Your message here..."
+      },
+      "submit": "Send Message",
+      "sending": "Sending...",
+      "success": "Message sent successfully! We'll get back to you soon.",
+      "error": "Failed to send message"
+    },
+    "contactInfo": {
+      "title": "Other Ways to Reach Us",
+      "email": {
+        "label": "Email",
+        "value": "support@wedesist.com"
+      }
+    },
+    "social": {
+      "title": "Connect with Us",
+      "twitter": "Twitter",
+      "instagram": "Instagram",
+      "facebook": "Facebook"
+    },
+    "mobile": {
+      "title": "Get Support on the Go",
+      "description": "Download our app to access support features and connect with our community anytime, anywhere."
+    },
+    "cta": {
+      "title": "Get in Touch",
+      "description": "Have questions or need support? Our team is here to help you 24/7.",
+      "primary": "Contact Us",
+      "secondary": "Find Local Office"
+    }
+  },
+  "footer": {
+    "description": "Empowering communities through technology to create safer spaces for everyone. Join us in building a more secure future.",
+    "quickLinks": {
+      "title": "Quick Links",
+      "about": "About Us",
+      "resources": "Resources",
+      "contact": "Contact",
+      "privacy": "Privacy Policy"
+    },
+    "contact": {
+      "title": "Contact Us",
+      "email": "support@wedesist.com"
+    },
+    "bottom": {
+      "copyright": "© {year} DESIST!. All rights reserved.",
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy",
+      "cookies": "Cookie Policy"
+    }
+  },
+  "header": {
+    "logo": {
+      "title": "DESIST!",
+      "subtitle": "Community Protection"
+    },
+    "navigation": {
+      "about": "About",
+      "community": "Community",
+      "incidents": "Incidents",
+      "legalHelp": "Legal Help",
+      "resources": "Resources",
+      "support": "Support",
+      "download": "Download",
+      "contact": "Contact",
+      "menu": "Menu"
+    },
+    "language": {
+      "en": "English",
+      "es": "Español"
+    }
+  },
+  "about": {
+    "hero": {
+      "title": "About Our Mission",
+      "description": "We are a community-driven organization dedicated to protecting and empowering marginalized communities through unity, education, and mutual support.",
+      "joinButton": "Join Us"
+    },
+    "story": {
+      "title": "Our Story",
+      "paragraph1": "Founded by community members who recognized the need for organized support and protection, DESIST! has grown into a network of dedicated individuals and organizations working together to create safer spaces for all.",
+      "paragraph2": "We believe in the power of community action, mutual aid, and solidarity. Through education, rapid response networks, and community organizing, we work to protect our neighbors and build stronger, more resilient communities."
+    },
+    "values": {
+      "title": "Our Values",
+      "unity": {
+        "title": "Unity",
+        "description": "We stand together, recognizing that our strength lies in our solidarity and mutual support."
+      },
+      "education": {
+        "title": "Education",
+        "description": "Knowledge is power. We empower our community through workshops, training, and resource sharing."
+      },
+      "action": {
+        "title": "Action",
+        "description": "We take concrete steps to protect and support our community members when they need it most."
+      },
+      "community": {
+        "title": "Community",
+        "description": "We build strong, resilient networks of support that celebrate our diversity and shared humanity."
+      }
+    },
+    "mobile": {
+      "title": "Join the Movement on Mobile",
+      "description": "Download our app to stay connected with the community and access resources on the go."
+    },
+    "cta": {
+      "title": "Join Our Community",
+      "description": "Be part of our mission to protect and empower marginalized communities through unity and support.",
+      "primaryAction": "Join Us",
+      "secondaryAction": "Learn More"
+    }
+  }
+} 

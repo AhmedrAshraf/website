@@ -1,0 +1,741 @@
+{
+  "common": {
+    "navigation": {
+      "home": "Inicio",
+      "about": "Acerca de",
+      "community": "Comunidad",
+      "incidents": "Incidentes",
+      "legalHelp": "Ayuda Legal",
+      "resources": "Recursos",
+      "support": "Soporte",
+      "download": "Descargar",
+      "contact": "Contacto",
+      "menu": "Menú"
+    },
+    "buttons": {
+      "contact": "Contactar",
+      "learnMore": "Saber Más",
+      "submit": "Enviar",
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "delete": "Eliminar",
+      "edit": "Editar"
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "Únete a Nuestra Comunidad",
+      "description": "Sé parte de un movimiento que está marcando una diferencia real. Juntos, podemos crear comunidades más fuertes y seguras para todos.",
+      "volunteer": "Voluntario",
+      "supportUs": "Apóyanos",
+      "joinMovement": "Únete al Movimiento",
+      "stats": {
+        "volunteers": "Voluntarios",
+        "communities": "Comunidades",
+        "impact": "Impacto"
+      }
+    },
+    "impact": {
+      "title": "Nuestro Impacto",
+      "description": "Juntos, estamos marcando una diferencia real en nuestras comunidades",
+      "stats": {
+        "members": {
+          "value": "10K+",
+          "label": "Miembros de la Comunidad"
+        },
+        "partners": {
+          "value": "50+",
+          "label": "Organizaciones Socias"
+        },
+        "supported": {
+          "value": "100K+",
+          "label": "Personas Apoyadas"
+        },
+        "support": {
+          "value": "24/7",
+          "label": "Soporte Comunitario"
+        }
+      }
+    },
+    "volunteer": {
+      "title": "Oportunidades de Voluntariado",
+      "description": "Marca la diferencia en tu comunidad a través de varios roles de voluntariado",
+      "features": {
+        "outreach": {
+          "title": "Alcance Comunitario",
+          "description": "Conéctate y apoya a los miembros de la comunidad que lo necesitan.",
+          "link": "Saber Más"
+        },
+        "events": {
+          "title": "Apoyo a Eventos",
+          "description": "Ayuda a organizar y ejecutar eventos y talleres comunitarios.",
+          "link": "Ver Eventos"
+        },
+        "resources": {
+          "title": "Distribución de Recursos",
+          "description": "Ayuda a distribuir recursos a los miembros de la comunidad.",
+          "link": "Comenzar"
+        }
+      }
+    },
+    "partner": {
+      "title": "Oportunidades de Alianzas",
+      "description": "Únete a nosotros para crear un cambio duradero",
+      "features": {
+        "organizations": {
+          "title": "Alianzas con Organizaciones",
+          "description": "Únete a organizaciones afines para amplificar el impacto.",
+          "link": "Asociarse con Nosotros"
+        },
+        "sharing": {
+          "title": "Compartir Recursos",
+          "description": "Comparte recursos y experiencia para fortalecer nuestra comunidad.",
+          "link": "Compartir Recursos"
+        },
+        "initiatives": {
+          "title": "Iniciativas Conjuntas",
+          "description": "Colabora en proyectos que impulsan un cambio significativo.",
+          "link": "Iniciar Proyecto"
+        }
+      }
+    },
+    "mobile": {
+      "title": "Únete al Movimiento en Móvil",
+      "description": "Descarga nuestra aplicación para mantenerte conectado con la comunidad y acceder a recursos sobre la marcha.",
+      "download": "Descargar App",
+      "learnMore": "Saber Más"
+    },
+    "news": {
+      "title": "Últimas Noticias",
+      "description": "Mantente informado sobre los desarrollos importantes que afectan a nuestra comunidad. Lee las últimas noticias y actualizaciones.",
+      "viewAll": "Ver Todas las Noticias",
+      "readMore": "Leer Más →"
+    }
+  },
+  "community": {
+    "hero": {
+      "title": "Centro Comunitario",
+      "description": "Une fuerzas con tu comunidad local para crear vecindarios más seguros y apoyar a quienes lo necesitan.",
+      "joinButton": "Únete a Nosotros",
+      "impactTitle": "Impacto Comunitario",
+      "stats": {
+        "reports": "Reportes Activos",
+        "members": "Miembros",
+        "events": "Eventos"
+      }
+    },
+    "stats": {
+      "title": "Impacto Comunitario",
+      "description": "Juntos, estamos construyendo comunidades más fuertes y seguras",
+      "activeReports": "Reportes Activos",
+      "communityMembers": "Miembros de la Comunidad",
+      "localEvents": "Eventos Locales",
+      "supportAvailable": "Soporte Disponible"
+    },
+    "forum": {
+      "title": "Foro Comunitario",
+      "description": "Únete a la conversación y comparte tus experiencias",
+      "viewButton": "Ver Foro Completo",
+      "noPosts": "Aún no hay publicaciones. ¡Sé el primero en iniciar una conversación!",
+      "categories": {
+        "support": "Grupos de Apoyo",
+        "resources": "Intercambio de Recursos",
+        "stories": "Historias de Éxito",
+        "updates": "Actualizaciones de la Comunidad"
+      }
+    },
+    "events": {
+      "title": "Eventos y Encuentros Locales",
+      "types": {
+        "title": "Tipos de Eventos",
+        "support": {
+          "title": "Grupos de Apoyo",
+          "description": "Reuniones regulares para compartir y sanar"
+        },
+        "workshop": {
+          "title": "Talleres",
+          "description": "Sesiones educativas sobre seguridad y empoderamiento"
+        },
+        "community": {
+          "title": "Acciones Comunitarias",
+          "description": "Actividades organizadas para el cambio social"
+        },
+        "social": {
+          "title": "Encuentros Sociales",
+          "description": "Reuniones casuales para construir conexiones"
+        }
+      },
+      "app": {
+        "title": "📱 Obtén Más con Nuestra App",
+        "features": {
+          "notifications": "Notificaciones de eventos en tiempo real",
+          "rsvp": "Confirmación y seguimiento de asistencia",
+          "connect": "Conéctate con organizadores de eventos",
+          "discovery": "Descubre eventos basados en tu ubicación"
+        }
+      },
+      "host": {
+        "title": "🤝 Organiza un Evento",
+        "description": "¿Quieres organizar un evento comunitario? Envía una solicitud para:",
+        "benefits": {
+          "create": "Crear y gestionar tu evento",
+          "reach": "Alcanzar a miembros de la comunidad local",
+          "support": "Recibir apoyo de nuestro equipo",
+          "resources": "Acceder a recursos para planificación de eventos"
+        },
+        "button": "Solicitar Organizar un Evento"
+      }
+    },
+    "appDownload": {
+      "title": "Toma Acción en Cualquier Lugar",
+      "description": "Descarga la aplicación DESIST para acceder a recursos, reportar incidentes y mantenerte conectado con tu comunidad.",
+      "features": {
+        "support": {
+          "title": "Soporte Instantáneo",
+          "description": "Acceso 24/7 a recursos y soporte de emergencia"
+        },
+        "reporting": {
+          "title": "Reportes Rápidos",
+          "description": "Reporta incidentes y comparte actualizaciones en tiempo real"
+        },
+        "network": {
+          "title": "Red Comunitaria",
+          "description": "Conéctate con aliados y redes de apoyo cercanas"
+        }
+      },
+      "stores": {
+        "apple": {
+          "download": "Descarga en",
+          "name": "App Store"
+        },
+        "google": {
+          "download": "Disponible en",
+          "name": "Google Play"
+        }
+      },
+      "stats": {
+        "downloads": {
+          "value": "100K+",
+          "label": "Descargas"
+        },
+        "rating": {
+          "value": "4.8★",
+          "label": "Calificación"
+        },
+        "cities": {
+          "value": "50+",
+          "label": "Ciudades"
+        }
+      }
+    }
+  },
+  "incidents": {
+    "all": {
+      "title": "Todos los Incidentes",
+      "back": "Volver a la Vista General",
+      "search": "Buscar incidentes...",
+      "sort": {
+        "newest": "Más Recientes",
+        "oldest": "Más Antiguos",
+        "type": "Por Tipo"
+      },
+      "filter": {
+        "all": "Todos los Incidentes",
+        "active": "Activos",
+        "resolved": "Resueltos",
+        "investigating": "En Investigación"
+      },
+      "views": {
+        "list": "Lista",
+        "map": "Mapa"
+      },
+      "previous": "Anterior",
+      "next": "Siguiente",
+      "page": "Página",
+      "of": "de",
+      "centerOnMe": "Centrar en Mí",
+      "viewAll": "Ver Todos",
+      "yourLocation": "Tu Ubicación"
+    },
+    "hero": {
+      "title": "Reportes de Incidentes",
+      "description": "Juntos podemos hacer nuestra comunidad más segura. Reporta incidentes y mantente informado sobre lo que sucede en tu área.",
+      "reportButton": "Reportar Incidente"
+    },
+    "stats": {
+      "totalReports": "Reportes Totales"
+    },
+    "features": {
+      "title": "Características de Reportes",
+      "description": "Herramientas poderosas para ayudarte a reportar y rastrear incidentes",
+      "anonymous": {
+        "title": "Reportes Anónimos",
+        "description": "Envía reportes sin revelar tu identidad. Tu privacidad es nuestra prioridad."
+      },
+      "mobile": {
+        "title": "Reportes Móviles",
+        "description": "Reporta incidentes sobre la marcha usando nuestra aplicación móvil."
+      },
+      "location": {
+        "title": "Seguimiento de Ubicación",
+        "description": "Servicios de ubicación opcionales para ayudar a identificar patrones de incidentes."
+      },
+      "alerts": {
+        "title": "Alertas en Tiempo Real",
+        "description": "Recibe notificaciones sobre incidentes en tu área."
+      },
+      "media": {
+        "title": "Subida de Medios",
+        "description": "Sube fotos y videos de forma segura como evidencia."
+      },
+      "updates": {
+        "title": "Actualizaciones Comunitarias",
+        "description": "Mantente informado sobre resoluciones y resultados de incidentes."
+      }
+    },
+    "recent": {
+      "title": "Incidentes Recientes",
+      "viewAll": "Ver Todos los Incidentes",
+      "filters": {
+        "all": "Todos los Incidentes",
+        "active": "Activos",
+        "resolved": "Resueltos",
+        "investigating": "En Investigación"
+      },
+      "views": {
+        "list": "Lista",
+        "map": "Mapa"
+      },
+      "location": "Ubicación no especificada"
+    },
+    "cta": {
+      "title": "Descarga Nuestra Aplicación Móvil",
+      "description": "Reporta incidentes, recibe alertas y mantente conectado con tu comunidad sobre la marcha.",
+      "primary": "Obtener la App",
+      "secondary": "Saber Más"
+    }
+  },
+  "resources": {
+    "hero": {
+      "title": "Recursos Comunitarios",
+      "description": "Accede a herramientas, información y redes de apoyo diseñadas para ayudarte a ti y a tu comunidad a mantenerse informados y empoderados.",
+      "viewGuides": "Ver Guías",
+      "getHelp": "Obtener Ayuda"
+    },
+    "categories": {
+      "educational": {
+        "title": "Recursos Educativos",
+        "items": {
+          "harassment": "Entender el acoso",
+          "warning": "Reconocer señales de advertencia",
+          "prevention": "Estrategias de prevención"
+        },
+        "button": "Saber Más"
+      },
+      "legal": {
+        "title": "Recursos Legales",
+        "items": {
+          "rights": "Conoce tus derechos",
+          "assistance": "Asistencia legal",
+          "documentation": "Guías de documentación"
+        },
+        "button": "Acceder a Recursos"
+      },
+      "support": {
+        "title": "Red de Apoyo",
+        "items": {
+          "groups": "Grupos de apoyo",
+          "counseling": "Servicios de consejería",
+          "events": "Eventos comunitarios"
+        },
+        "button": "Encontrar Apoyo"
+      }
+    },
+    "tools": {
+      "title": "Herramientas y Descargas",
+      "safety": {
+        "title": "Herramientas de Planificación de Seguridad",
+        "items": {
+          "checklist": "Lista de verificación de seguridad personal",
+          "contacts": "Plantillas de contactos de emergencia",
+          "builder": "Constructor de planes de seguridad"
+        },
+        "button": "Descargar Herramientas"
+      },
+      "documentation": {
+        "title": "Recursos de Documentación",
+        "items": {
+          "templates": "Plantillas de reportes de incidentes",
+          "evidence": "Guías de recolección de evidencia",
+          "samples": "Muestras de documentos legales"
+        },
+        "button": "Acceder a Documentos"
+      }
+    },
+    "mobile": {
+      "title": "Accede a Recursos en Cualquier Lugar",
+      "description": "Descarga nuestra aplicación para acceder a todos los recursos y herramientas en tu dispositivo móvil."
+    }
+  },
+  "legal": {
+    "attorney": {
+      "contact": "Contactar Abogado",
+      "cases": "casos atendidos",
+      "languages": "Idiomas"
+    }
+  },
+  "legalHelp": {
+    "hero": {
+      "title": "Directorio de Ayuda Legal",
+      "description": "Conéctate con abogados experimentados dedicados a proteger tus derechos y proporcionar asistencia legal experta."
+    },
+    "features": {
+      "title": "Servicios Legales de Nuestros Socios",
+      "description": "Asistencia legal personalizada para tus necesidades"
+    },
+    "attorneys": {
+      "title": "Abogados de Nuestros Socios",
+      "description": "Conéctate con abogados experimentados dedicados a proteger tus derechos y proporcionar asistencia legal experta.",
+      "viewAll": "Ver Todos los Abogados",
+      "search": "Buscar por nombre o especialización...",
+      "contact": "Contactar Abogado",
+      "featured": "Destacado",
+      "filter": {
+        "all": "Todos los Abogados",
+        "featured": "Destacados"
+      },
+      "noResults": "No se encontraron abogados que coincidan con tus criterios."
+    },
+    "cta": {
+      "title": "¿Eres un Abogado?",
+      "description": "Únete a nuestra red y conviértete en un abogado destacado. Ayuda a hacer una diferencia en tu comunidad mientras creces en tu práctica.",
+      "primary": "Únete a Nuestra Red",
+      "secondary": "Saber Más"
+    }
+  },
+  "support": {
+    "hero": {
+      "title": "Soporte y Recursos 24/7",
+      "description": "No estás solo. Obtén soporte inmediato y acceso a recursos cuando los necesites.",
+      "chatButton": "Chatear Ahora",
+      "callButton": "Llamar Soporte"
+    },
+    "emergency": {
+      "title": "Contactos de Emergencia",
+      "services": {
+        "title": "Servicios de Emergencia",
+        "number": "911"
+      },
+      "crisis": {
+        "title": "Línea de Crisis",
+        "number": "1-800-555-0000"
+      }
+    },
+    "immediate": {
+      "title": "Asistencia Inmediata",
+      "description": "Obtén ayuda inmediatamente a través de estos servicios públicos",
+      "crisis": {
+        "title": "Respuesta a Crisis",
+        "description": "Respuesta a crisis 24/7 disponible a través de estas organizaciones públicas."
+      },
+      "advocacy": {
+        "title": "Soporte de Defensoría",
+        "description": "Defensores profesionales para ayudar a navegar situaciones complejas."
+      },
+      "housing": {
+        "title": "Vivienda Segura",
+        "description": "Asistencia de vivienda y refugio de emergencia cuando sea necesario."
+      }
+    },
+    "mobile": {
+      "title": "Soporte en tu Bolsillo",
+      "description": "Descarga nuestra aplicación para acceder a todos los servicios de soporte y obtener ayuda cuando la necesites.",
+      "download": "Descargar App",
+      "learnMore": "Saber Más"
+    }
+  },
+  "hero": {
+    "title": {
+      "main": "Tu Guardián de",
+      "highlight": "Seguridad Personal"
+    },
+    "description": "Únete a miles protegiendo sus comunidades. Descarga DESIST ahora y toma el control de tu seguridad.",
+    "stores": {
+      "apple": {
+        "download": "Descarga en",
+        "name": "App Store"
+      },
+      "google": {
+        "download": "Disponible en",
+        "name": "Google Play"
+      }
+    },
+    "stats": {
+      "users": {
+        "value": "100K+",
+        "label": "Usuarios Activos"
+      },
+      "rating": {
+        "value": "4.8★",
+        "label": "Calificación"
+      },
+      "cities": {
+        "value": "50+",
+        "label": "Ciudades"
+      }
+    },
+    "features": {
+      "alerts": {
+        "title": "Alertas en Tiempo Real",
+        "description": "Mantente informado 24/7"
+      },
+      "response": {
+        "title": "Respuesta Rápida",
+        "description": "Asistencia con un toque"
+      }
+    }
+  },
+  "appFeatures": {
+    "title": "Todo lo que Necesitas para Mantenerte Seguro",
+    "description": "DESIST proporciona características de seguridad integrales diseñadas para protegerte a ti y a tu comunidad",
+    "features": {
+      "protection": {
+        "title": "Protección en Tiempo Real",
+        "description": "Recibe alertas instantáneas sobre incidentes en tu área y mantente informado sobre posibles riesgos."
+      },
+      "network": {
+        "title": "Red Comunitaria",
+        "description": "Conéctate con aliados cercanos y construye una red de apoyo fuerte dentro de tu comunidad."
+      },
+      "response": {
+        "title": "Respuesta de Emergencia",
+        "description": "Acceso con un toque a servicios de emergencia y conexión rápida con recursos de apoyo locales."
+      },
+      "resources": {
+        "title": "Recursos de Seguridad",
+        "description": "Accede a una biblioteca completa de guías de seguridad, recursos legales y contenido educativo."
+      }
+    },
+    "download": "Descargar Ahora"
+  },
+  "notifications": {
+    "title": "Mantente Informado en Tiempo Real",
+    "description": "Recibe notificaciones instantáneas sobre preocupaciones de seguridad en tu área. Nuestro sistema avanzado de alertas te mantiene informado y protegido 24/7.",
+    "features": {
+      "alerts": {
+        "title": "Alertas Instantáneas",
+        "description": "Notificaciones en tiempo real sobre preocupaciones de seguridad"
+      },
+      "location": {
+        "title": "Basado en Ubicación",
+        "description": "Alertas dirigidas para tu vecindario"
+      },
+      "customizable": {
+        "title": "Personalizable",
+        "description": "Configura tus preferencias de notificación"
+      }
+    },
+    "demo": {
+      "alert": {
+        "title": "Alerta de Seguridad",
+        "message": "Actividad sospechosa reportada cerca del área del Centro"
+      },
+      "info": {
+        "title": "Actualización Comunitaria",
+        "message": "Nuevo taller de seguridad este fin de semana"
+      },
+      "success": {
+        "title": "Incidente Resuelto",
+        "message": "Todo despejado en el vecindario"
+      }
+    }
+  },
+  "stats": {
+    "title": "Haciendo las Comunidades Más Seguras",
+    "description": "Únete a miles de usuarios que confían en DESIST para proteger lo que más importa",
+    "metrics": {
+      "users": {
+        "label": "Usuarios Protegidos",
+        "value": "100000",
+        "suffix": "+"
+      },
+      "incidents": {
+        "label": "Incidentes Prevenidos",
+        "value": "5000",
+        "suffix": "+"
+      },
+      "communities": {
+        "label": "Comunidades",
+        "value": "250",
+        "suffix": "+"
+      },
+      "satisfaction": {
+        "label": "Satisfacción de Usuarios",
+        "value": "98",
+        "suffix": "%"
+      }
+    }
+  },
+  "testimonials": {
+    "title": "Confiado por Comunidades en Todo el País",
+    "description": "Mira cómo DESIST está marcando la diferencia en vecindarios de todo el país",
+    "quotes": [
+      {
+        "text": "DESIST ha transformado cómo nuestro vecindario maneja las preocupaciones de seguridad. Las alertas en tiempo real han marcado una diferencia real.",
+        "author": "Sarah Chen",
+        "role": "Organizadora Comunitaria",
+        "location": "San Francisco, CA"
+      },
+      {
+        "text": "La función de respuesta de emergencia me ayudó a obtener asistencia inmediata cuando más la necesitaba. Cada comunidad necesita esta aplicación.",
+        "author": "Marcus Johnson",
+        "role": "Dueño de Pequeño Negocio",
+        "location": "Chicago, IL"
+      },
+      {
+        "text": "Como líder comunitaria, he visto de primera mano cómo DESIST une a las personas para crear vecindarios más seguros.",
+        "author": "Lisa Rodriguez",
+        "role": "Coordinadora de Vigilancia Vecinal",
+        "location": "Austin, TX"
+      }
+    ],
+    "cta": {
+      "description": "Únete a miles de usuarios haciendo sus comunidades más seguras",
+      "button": "Comienza Hoy"
+    }
+  },
+  "contact": {
+    "hero": {
+      "title": "Contáctanos",
+      "description": "¿Tienes preguntas o quieres involucrarte? Estamos aquí para ayudar. Comunícate con nuestro equipo y forma parte de nuestra comunidad."
+    },
+    "form": {
+      "title": "Envíanos un Mensaje",
+      "name": {
+        "label": "Nombre",
+        "placeholder": "Tu nombre"
+      },
+      "email": {
+        "label": "Correo Electrónico",
+        "placeholder": "tu.correo@ejemplo.com"
+      },
+      "subject": {
+        "label": "Asunto",
+        "placeholder": "¿De qué se trata?"
+      },
+      "message": {
+        "label": "Mensaje",
+        "placeholder": "Tu mensaje aquí..."
+      },
+      "submit": "Enviar Mensaje",
+      "sending": "Enviando...",
+      "success": "¡Mensaje enviado con éxito! Te responderemos pronto.",
+      "error": "Error al enviar el mensaje"
+    },
+    "contactInfo": {
+      "title": "Otras Formas de Contactarnos",
+      "email": {
+        "label": "Correo Electrónico",
+        "value": "support@wedesist.com"
+      }
+    },
+    "social": {
+      "title": "Conéctate con Nosotros",
+      "twitter": "Twitter",
+      "instagram": "Instagram",
+      "facebook": "Facebook"
+    },
+    "mobile": {
+      "title": "Obtén Soporte en Movimiento",
+      "description": "Descarga nuestra aplicación para acceder a funciones de soporte y conectarte con nuestra comunidad en cualquier momento y lugar."
+    },
+    "cta": {
+      "title": "Contáctanos",
+      "description": "¿Tienes preguntas o necesitas soporte? Nuestro equipo está aquí para ayudarte 24/7.",
+      "primary": "Contáctanos",
+      "secondary": "Encuentra Oficina Local"
+    }
+  },
+  "footer": {
+    "description": "Empoderando comunidades a través de la tecnología para crear espacios más seguros para todos. Únete a nosotros en la construcción de un futuro más seguro.",
+    "quickLinks": {
+      "title": "Enlaces Rápidos",
+      "about": "Acerca de Nosotros",
+      "resources": "Recursos",
+      "contact": "Contacto",
+      "privacy": "Política de Privacidad"
+    },
+    "contact": {
+      "title": "Contáctanos",
+      "email": "support@wedesist.com"
+    },
+    "bottom": {
+      "copyright": "© {year} DESIST!. Todos los derechos reservados.",
+      "terms": "Términos de Servicio",
+      "privacy": "Política de Privacidad",
+      "cookies": "Política de Cookies"
+    }
+  },
+  "header": {
+    "logo": {
+      "title": "DESIST!",
+      "subtitle": "Protección Comunitaria"
+    },
+    "navigation": {
+      "about": "Acerca de",
+      "community": "Comunidad",
+      "incidents": "Incidentes",
+      "legalHelp": "Ayuda Legal",
+      "resources": "Recursos",
+      "support": "Soporte",
+      "download": "Descargar",
+      "contact": "Contacto",
+      "menu": "Menú"
+    },
+    "language": {
+      "en": "English",
+      "es": "Español"
+    }
+  },
+  "about": {
+    "hero": {
+      "title": "Sobre Nuestra Misión",
+      "description": "Somos una organización impulsada por la comunidad dedicada a proteger y empoderar a las comunidades marginadas a través de la unidad, la educación y el apoyo mutuo.",
+      "joinButton": "Únete a Nosotros"
+    },
+    "story": {
+      "title": "Nuestra Historia",
+      "paragraph1": "Fundada por miembros de la comunidad que reconocieron la necesidad de apoyo y protección organizada, DESIST! se ha convertido en una red de individuos y organizaciones dedicadas que trabajan juntas para crear espacios más seguros para todos.",
+      "paragraph2": "Creemos en el poder de la acción comunitaria, la ayuda mutua y la solidaridad. A través de la educación, las redes de respuesta rápida y la organización comunitaria, trabajamos para proteger a nuestros vecinos y construir comunidades más fuertes y resilientes."
+    },
+    "values": {
+      "title": "Nuestros Valores",
+      "unity": {
+        "title": "Unidad",
+        "description": "Nos mantenemos unidos, reconociendo que nuestra fortaleza radica en nuestra solidaridad y apoyo mutuo."
+      },
+      "education": {
+        "title": "Educación",
+        "description": "El conocimiento es poder. Empoderamos a nuestra comunidad a través de talleres, capacitación y compartir recursos."
+      },
+      "action": {
+        "title": "Acción",
+        "description": "Tomamos medidas concretas para proteger y apoyar a los miembros de nuestra comunidad cuando más lo necesitan."
+      },
+      "community": {
+        "title": "Comunidad",
+        "description": "Construimos redes de apoyo fuertes y resilientes que celebran nuestra diversidad y humanidad compartida."
+      }
+    },
+    "mobile": {
+      "title": "Únete al Movimiento en Móvil",
+      "description": "Descarga nuestra aplicación para mantenerte conectado con la comunidad y acceder a recursos sobre la marcha."
+    },
+    "cta": {
+      "title": "Únete a Nuestra Comunidad",
+      "description": "Sé parte de nuestra misión para proteger y empoderar a las comunidades marginadas a través de la unidad y el apoyo.",
+      "primaryAction": "Únete a Nosotros",
+      "secondaryAction": "Saber Más"
+    }
+  }
+} 

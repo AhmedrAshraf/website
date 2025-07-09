@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="800" height="300" viewBox="0 0 800 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Logo -->
+  <g transform="translate(50, 50) scale(0.4)">
+    <!-- Background Circle -->
+    <circle cx="250" cy="250" r="240" fill="#1E40AF" />
+    
+    <!-- Inner Circle (Lighter Blue) -->
+    <circle cx="250" cy="250" r="220" fill="#2563EB" />
+    
+    <!-- Shield Shape -->
+    <path d="M250 80C180 120 130 120 130 120V280C130 340 190 380 250 420C310 380 370 340 370 280V120C370 120 320 120 250 80Z" fill="white" />
+    
+    <!-- Exclamation Mark -->
+    <path d="M250 140C265.464 140 278 152.536 278 168V272C278 287.464 265.464 300 250 300C234.536 300 222 287.464 222 272V168C222 152.536 234.536 140 250 140Z" fill="#1E40AF" />
+    <circle cx="250" cy="350" r="30" fill="#1E40AF" />
+  </g>
+  
+  <!-- Text -->
+  <text x="280" y="150" font-family="Arial, sans-serif" font-weight="bold" font-size="80" fill="#1E40AF">DESIST!</text>
+  <text x="280" y="200" font-family="Arial, sans-serif" font-size="30" fill="#64748B">Community Protection</text>
+</svg>
