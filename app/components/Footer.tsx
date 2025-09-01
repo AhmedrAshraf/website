@@ -8,7 +8,11 @@ export function Footer() {
   const { t } = useTranslation();
   const year = new Date().getFullYear();
   return (
-    <footer className="bg-white/50 dark:bg-gray-900/50 text-gray-900 dark:text-white">
+    <footer 
+      className="bg-white/50 dark:bg-gray-900/50 text-gray-900 dark:text-white"
+      role="contentinfo"
+      aria-label="Footer"
+    >
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Logo and Description */}
@@ -19,7 +23,7 @@ export function Footer() {
             <p className="text-gray-900 dark:text-white mb-4 max-w-md">
               {t('footer.description')}
             </p>
-            <div className="flex space-x-4">
+            <div className="flex space-x-4" role="list" aria-label="Social media links">
               <motion.a
                 href="https://twitter.com/desistapp"
                 target="_blank"
@@ -27,6 +31,7 @@ export function Footer() {
                 className="text-gray-900 dark:text-white transition-colors duration-300"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
+                aria-label="Follow us on Twitter"
               >
                 <svg
                   className="w-6 h-6"
@@ -44,6 +49,7 @@ export function Footer() {
                 className="text-gray-900 dark:text-white transition-colors duration-300"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
+                aria-label="Follow us on Instagram"
               >
                 <svg
                   className="w-6 h-6"

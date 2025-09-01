@@ -4,6 +4,9 @@ import { HeroSection } from "../components/HeroSection";
 import { StatsDisplay } from "../components/StatsDisplay";
 import { LocalEvents } from "./components/LocalEvents";
 import { AppDownloadCTA } from "../components/AppDownloadCTA";
+import { CommunityPost } from "./components/CommunityPost";
+import { BadgeShowcase } from "./components/BadgeShowcase";
+import { SuccessStories } from "./components/SuccessStories";
 import { useState, useEffect } from "react";
 import supabase from "../../utils/supabase";
 import Link from "next/link";
@@ -177,6 +180,195 @@ export default function CommunityPage() {
               description={t('community.stats.description')}
               stats={communityStats}
             />
+
+            {/* Featured Success Stories */}
+            <SuccessStories
+              stories={[
+                {
+                  id: '1',
+                  title: 'Local Business Changed Harassment Policy',
+                  excerpt: 'After reporting through DESIST, a local restaurant updated their harassment policies and implemented staff training.',
+                  content: 'Full story content here...',
+                  author: {
+                    name: 'Sarah M.',
+                    location: 'Austin, TX',
+                    isAnonymous: false,
+                  },
+                  category: 'policy_change',
+                  impact: {
+                    type: 'policy_change',
+                    description: 'Restaurant chain updated harassment policies across 15 locations',
+                  },
+                  timestamp: '2025-08-15',
+                  featured: true,
+                  likes: 24,
+                  tags: ['workplace', 'policy', 'training'],
+                },
+                {
+                  id: '2',
+                  title: 'Community Support Helped Me Find My Voice',
+                  excerpt: 'The DESIST community gave me the confidence to speak up about harassment at my workplace.',
+                  content: 'Full story content here...',
+                  author: {
+                    name: 'Anonymous',
+                    isAnonymous: true,
+                  },
+                  category: 'support',
+                  impact: {
+                    type: 'support_provided',
+                    description: 'Connected with local support resources and legal aid',
+                  },
+                  timestamp: '2025-08-10',
+                  featured: true,
+                  likes: 18,
+                  tags: ['support', 'community', 'empowerment'],
+                },
+                {
+                  id: '3',
+                  title: 'Street Harassment Incident Led to Awareness Campaign',
+                  excerpt: 'What started as a single incident report grew into a city-wide awareness campaign.',
+                  content: 'Full story content here...',
+                  author: {
+                    name: 'Maya K.',
+                    location: 'San Francisco, CA',
+                    isAnonymous: false,
+                  },
+                  category: 'awareness',
+                  impact: {
+                    type: 'awareness_raised',
+                    description: 'City launched "Safe Streets" campaign reaching 50,000+ residents',
+                  },
+                  timestamp: '2025-07-28',
+                  featured: true,
+                  likes: 42,
+                  tags: ['street-harassment', 'awareness', 'campaign'],
+                },
+              ]}
+              showFeaturedOnly={true}
+              maxDisplay={3}
+            />
+
+            {/* Community Badge Showcase */}
+            <BadgeShowcase
+              badges={[
+                {
+                  id: 'first_report',
+                  name: 'First Report',
+                  description: 'Submitted your first incident report',
+                  icon: '🛡️',
+                  color: 'blue',
+                  rarity: 'common',
+                  isEarned: true,
+                  earnedAt: '2025-08-01',
+                },
+                {
+                  id: 'community_helper',
+                  name: 'Helper',
+                  description: 'Provided support to 5 community members',
+                  icon: '🤝',
+                  color: 'green',
+                  rarity: 'uncommon',
+                  isEarned: true,
+                  earnedAt: '2025-08-15',
+                },
+                {
+                  id: 'advocate',
+                  name: 'Advocate',
+                  description: 'Shared resources with 10+ people',
+                  icon: '📢',
+                  color: 'purple',
+                  rarity: 'rare',
+                  isEarned: false,
+                  requirements: 'Share resources with 10 people',
+                  progress: { current: 7, total: 10 },
+                },
+                {
+                  id: 'trusted_member',
+                  name: 'Trusted',
+                  description: 'Verified community member for 6+ months',
+                  icon: '⭐',
+                  color: 'yellow',
+                  rarity: 'epic',
+                  isEarned: false,
+                  requirements: 'Be an active member for 6 months',
+                  progress: { current: 3, total: 6 },
+                },
+                {
+                  id: 'legend',
+                  name: 'Legend',
+                  description: 'Made significant impact in community safety',
+                  icon: '👑',
+                  color: 'gold',
+                  rarity: 'legendary',
+                  isEarned: false,
+                  requirements: 'Contribute to significant policy changes',
+                },
+              ]}
+              maxDisplay={8}
+            />
+
+            {/* Featured Community Posts */}
+            <section className="space-y-6">
+              <div className="flex justify-between items-center">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+                  Featured Community Posts
+                </h2>
+                <Link
+                  href="/community/forum"
+                  className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium"
+                >
+                  View all posts →
+                </Link>
+              </div>
+              
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <CommunityPost
+                  id={1}
+                  title="New Safety Resources Available"
+                  content="We've just published a comprehensive guide on workplace harassment prevention. This resource includes legal information, reporting procedures, and support contacts for each state."
+                  author={{
+                    name: "DESIST Team",
+                    isVerified: true,
+                  }}
+                  category={{
+                    id: "updates",
+                    name: "Updates",
+                    color: "green",
+                  }}
+                  timestamp="2025-08-30"
+                  stats={{
+                    likes: 45,
+                    replies: 12,
+                    views: 234,
+                  }}
+                  featured={true}
+                  isPinned={true}
+                  tags={["resources", "workplace", "legal"]}
+                />
+                
+                <CommunityPost
+                  id={2}
+                  title="Local Support Group Meeting This Weekend"
+                  content="Join us for our monthly in-person support group meeting. We'll discuss coping strategies, share experiences, and connect with others in your area. Light refreshments provided."
+                  author={{
+                    name: "Lisa Chen",
+                    isVerified: false,
+                  }}
+                  category={{
+                    id: "support",
+                    name: "Support",
+                    color: "blue",
+                  }}
+                  timestamp="2025-08-29"
+                  stats={{
+                    likes: 28,
+                    replies: 8,
+                    views: 156,
+                  }}
+                  tags={["support-group", "in-person", "community"]}
+                />
+              </div>
+            </section>
 
             {/* Community Forum Preview */}
             <section className="container py-16">

@@ -84,26 +84,28 @@ try {
 }
 
 // Retry mechanism for fetching RSS feeds
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function fetchWithRetry(parser: Parser, url: string, maxRetries: number = 3, delay: number = 1000): Promise<any> {
   console.log(`Attempting to fetch RSS feed from ${url}`);
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
-      const result = await parser.parseURL(url, { timeout: 5000 }, () => {});
+      const result = await parser.parseURL(url);
       console.log(`Successfully fetched RSS feed from ${url}`);
       return result;
-    } catch (error: any) {
-      console.error(`Error fetching RSS feed from ${url} (attempt ${attempt}/${maxRetries}):`, error.message);
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      console.error(`Error fetching RSS feed from ${url} (attempt ${attempt}/${maxRetries}):`, errorMessage);
       const isRetryableError = 
-        error?.message?.includes('Status code 502') ||
-        error?.message?.includes('Status code 503') ||
-        error?.message?.includes('Status code 504') ||
-        error?.message?.includes('ECONNRESET') ||
-        error?.message?.includes('ETIMEDOUT') || 
-        error?.message?.includes('timeout') ||
-        error?.code === 'ECONNABORTED' ||
-        error?.code === 'ETIMEDOUT';
-      
-      if (attempt === maxRetries || !isRetryableError) {
+        (error instanceof Error && error.message?.includes('Status code 502')) ||
+        (error instanceof Error && error.message?.includes('Status code 503')) ||
+        (error instanceof Error && error.message?.includes('Status code 504')) ||
+        (error instanceof Error && error.message?.includes('ECONNRESET')) ||
+        (error instanceof Error && error.message?.includes('ETIMEDOUT')) ||
+        (error instanceof Error && error.message?.includes('timeout')) ||
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (error as any)?.code === 'ECONNABORTED' ||
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (error as any)?.code === 'ETIMEDOUT';      if (attempt === maxRetries || !isRetryableError) {
         console.error(`Failed to fetch RSS feed from ${url} after ${maxRetries} attempts`);
         return { items: [] }; // Return empty feed instead of throwing
       }
@@ -210,7 +212,8 @@ export async function GET(request: Request) {
         const relevantItems = feedData.items.filter(isRelevantArticle);
         console.log(`Found ${relevantItems.length} relevant articles in ${feed.name}`);
 
-        const articlePromises = relevantItems.map(async item => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const articlePromises = relevantItems.map(async (item: any) => {
           if (!item) return null;
 
           const imageUrl = item.enclosure?.url;

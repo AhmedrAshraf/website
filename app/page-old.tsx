@@ -50,42 +50,42 @@ export default function JoinPage() {
       }
     },
     {
-      icon: "📚",
-      title: t('home.volunteer.features.education.title'),
-      description: t('home.volunteer.features.education.description'),
+      icon: "📅",
+      title: t('home.volunteer.features.events.title'),
+      description: t('home.volunteer.features.events.description'),
       link: {
-        label: t('home.volunteer.features.education.link'),
-        href: "#education"
+        label: t('home.volunteer.features.events.link'),
+        href: "#events"
       }
     },
     {
-      icon: "💡",
-      title: t('home.volunteer.features.advocacy.title'),
-      description: t('home.volunteer.features.advocacy.description'),
+      icon: "📦",
+      title: t('home.volunteer.features.resources.title'),
+      description: t('home.volunteer.features.resources.description'),
       link: {
-        label: t('home.volunteer.features.advocacy.link'),
-        href: "#advocacy"
+        label: t('home.volunteer.features.resources.link'),
+        href: "#resources"
       }
     }
   ];
 
   const partnerFeatures = [
     {
-      icon: "🏢",
+      icon: "🤝",
       title: t('home.partner.features.organizations.title'),
       description: t('home.partner.features.organizations.description'),
       link: {
         label: t('home.partner.features.organizations.link'),
-        href: "#organizations"
+        href: "#partner"
       }
     },
     {
-      icon: "🎓",
-      title: t('home.partner.features.institutions.title'),
-      description: t('home.partner.features.institutions.description'),
+      icon: "🔄",
+      title: t('home.partner.features.sharing.title'),
+      description: t('home.partner.features.sharing.description'),
       link: {
-        label: t('home.partner.features.institutions.link'),
-        href: "#institutions"
+        label: t('home.partner.features.sharing.link'),
+        href: "#share"
       }
     },
     {
@@ -111,6 +111,14 @@ export default function JoinPage() {
         imageSrc="/hero-bg.jpg"
         imageAlt="DESIST Community"
       >
+        <div className="mt-12">
+          <LaunchCountdown 
+            launchDate="2025-09-15T09:00:00Z"
+            title="DESIST Official Launch"
+            description="Join thousands already making a difference"
+          />
+        </div>
+      </HeroSection>
         <div className="mt-12">
           <LaunchCountdown 
             launchDate="2025-09-15T09:00:00Z"
@@ -171,4 +179,4 @@ export default function JoinPage() {
       />
     </div>
   );
-}
+} 

@@ -6,6 +6,9 @@ import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { TranslationProvider } from "./context/TranslationContext";
 import { AttorneysProvider } from "./context/AttorneysContext";
+import { AuthProvider } from "./providers/AuthProvider";
+import { PrivacyAnalytics, AnalyticsConsent } from "./components/PrivacyAnalytics";
+import { ClientSurveyProvider } from "./components/ClientSurveyProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -26,17 +29,26 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} font-sans antialiased`}>
-        <ThemeProvider>
-          <TranslationProvider>
-            <AttorneysProvider>
-              <Header />
-              <main className="pt-16 md:pt-20">
-                {children}
-              </main>
-              <Footer />
-            </AttorneysProvider>
-          </TranslationProvider>
-        </ThemeProvider>
+        <AuthProvider>
+          <ThemeProvider>
+            <TranslationProvider>
+              <AttorneysProvider>
+                <ClientSurveyProvider>
+                  <PrivacyAnalytics 
+                    plausibleDomain="desist.org"
+                    respectDNT={true}
+                  />
+                  <Header />
+                  <main className="pt-16 md:pt-20">
+                    {children}
+                  </main>
+                  <Footer />
+                  <AnalyticsConsent />
+                </ClientSurveyProvider>
+              </AttorneysProvider>
+            </TranslationProvider>
+          </ThemeProvider>
+        </AuthProvider>
       </body>
     </html>
   );

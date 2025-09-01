@@ -694,11 +694,15 @@
     },
     "navigation": {
       "about": "About",
-      "community": "Community",
+      "community": "Community", 
+      "campaigns": "Campaigns",
       "incidents": "Incidents",
       "legalHelp": "Legal Help",
       "resources": "Resources",
       "support": "Support",
+      "emergency": "Emergency",
+      "stealthMode": "Stealth Mode",
+      "press": "Press Kit",
       "download": "Download",
       "contact": "Contact",
       "menu": "Menu"

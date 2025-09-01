@@ -5,7 +5,39 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4.1-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com)
 
-A modern, full-stack web application built with Next.js, React, and TypeScript, designed to provide a comprehensive platform for community support and resources. This application serves as a central hub for community engagement, legal assistance, and resource sharing.
+A modern, full-stack web application built with Next.js, React, and TypeScript, designed to provide a comprehensive platform for community support and resources. This application serves as a central hub for community engagement, legal assistance, and resource sharing that launches in parallel with the DESIST mobile app.
+
+## 🎯 Project Vision
+
+This website serves as a community-first hub for support, engagement, education, and privacy advocacy, designed to mirror the look, feel, and functionality of the DESIST mobile app to provide a cohesive user experience across platforms.
+
+## 🚀 Phase 1: Foundation & Alignment ✅
+
+### ✅ Repository and Development Setup
+- Next.js 15.3.2 with TypeScript and React 19
+- ESLint, Prettier, and Husky for code quality and pre-commit hooks
+- GitHub Actions CI/CD pipeline with accessibility testing
+- Comprehensive README with setup instructions
+
+### ✅ Design System Alignment
+- Shared design tokens in `/theme` directory (colors, typography, spacing)
+- Reusable UI components: `Button`, `Badge`, `Card`, `Alert`
+- Global theming with Tailwind CSS integration
+- Mobile app design pattern compatibility
+
+### ✅ Accessibility Infrastructure
+- WCAG 2.1 AA compliance standards
+- `axe-core` integration for accessibility testing
+- Semantic HTML with proper ARIA roles and labels
+- Color contrast validation and accessible color pairs
+- Focus management and screen reader support
+- Lighthouse accessibility testing in CI/CD
+
+### ✅ Core Navigation
+- Accessible navigation with proper semantic markup
+- All core pages: Home, About, Community, Support, Privacy, Legal Help
+- Shared `Header` and `Footer` components with ARIA attributes
+- Mobile-responsive navigation with focus management
 
 ## 🎯 Our Approach
 

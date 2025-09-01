@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 import type { Config } from "tailwindcss";
+import { colors, typography, spacing, borderRadius, shadows, breakpoints, zIndex } from "./theme";
 
 const config: Config = {
   content: [
@@ -11,18 +12,10 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: {
-          50: '#f0f9ff',
-          100: '#e0f2fe',
-          200: '#bae6fd',
-          300: '#7dd3fc',
-          400: '#38bdf8',
-          500: '#0ea5e9',
-          600: '#0284c7',
-          700: '#0369a1',
-          800: '#075985',
-          900: '#0c4a6e',
-        },
+        ...colors,
+        // Legacy colors for backward compatibility
+        primary: colors.primary,
+        secondary: colors.secondary,
         dark: {
           primary: '#1B2D45',    // Deep navy background
           secondary: '#2D4059',  // Lighter navy for cards
@@ -39,6 +32,14 @@ const config: Config = {
         "dark-text-primary": "#ffffff",
         "dark-text-secondary": "#a0a0a0",
       },
+      fontFamily: typography.fontFamily,
+      fontSize: typography.fontSize,
+      fontWeight: typography.fontWeight,
+      spacing: spacing,
+      borderRadius: borderRadius,
+      boxShadow: shadows,
+      screens: breakpoints,
+      zIndex: zIndex,
       animation: {
         "slide-down": "slide-down 0.5s ease-out",
         "slide-up": "slide-up 0.5s ease-out",

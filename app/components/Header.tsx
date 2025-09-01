@@ -7,14 +7,19 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useTranslation } from "../context/TranslationContext";
+import { useSession, signOut } from "next-auth/react";
 
 const navigation = [
   { name: "header.navigation.about", href: "/about" },
   { name: "header.navigation.community", href: "/community" },
+  { name: "header.navigation.campaigns", href: "/community/campaigns" },
   { name: "header.navigation.incidents", href: "/incidents" },
   { name: "header.navigation.legalHelp", href: "/legal-help" },
   { name: "header.navigation.resources", href: "/resources" },
   { name: "header.navigation.support", href: "/support" },
+  { name: "header.navigation.emergency", href: "/support/emergency" },
+  { name: "header.navigation.stealthMode", href: "/features/stealth-mode" },
+  { name: "header.navigation.press", href: "/press" },
   { name: "header.navigation.download", href: "/download" },
   { name: "header.navigation.contact", href: "/contact" },
 ] as const;
@@ -92,6 +97,8 @@ const MenuButton = memo(({ isOpen, onClick }: { isOpen: boolean; onClick: () => 
     onClick={onClick}
     className="p-2 rounded-full text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 transition-colors"
     aria-expanded={isOpen}
+    aria-controls="mobile-menu"
+    aria-label="Toggle navigation menu"
   >
     <span className="sr-only">Toggle menu</span>
     <div className="relative w-6 h-6">
@@ -171,6 +178,123 @@ const LanguageSelector = memo(() => {
 });
 LanguageSelector.displayName = 'LanguageSelector';
 
+// Account menu component
+const AccountMenu = memo(() => {
+  const [isOpen, setIsOpen] = useState(false);
+  const { data: session } = useSession();
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const handleSignOut = () => {
+    signOut({ callbackUrl: '/' });
+    setIsOpen(false);
+  };
+
+  if (!session) {
+    return (
+      <div className="flex items-center gap-2">
+        <Link
+          href="/auth/signin"
+          className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+        >
+          Sign In
+        </Link>
+        <Link
+          href="/auth/signin"
+          className="px-4 py-2 text-sm font-medium bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
+        >
+          Get Started
+        </Link>
+      </div>
+    );
+  }
+
+  return (
+    <div className="relative" ref={dropdownRef}>
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 transition-colors"
+      >
+        <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
+          {(session.user?.name || session.user?.email || 'U')[0].toUpperCase()}
+        </div>
+        <span className="hidden sm:inline">
+          {session.user?.name || 'Account'}
+        </span>
+        <svg
+          className={`w-4 h-4 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+      
+      {isOpen && (
+        <div className="absolute right-0 mt-2 w-64 bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-2 z-50">
+          <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
+            <p className="text-sm font-medium text-gray-900 dark:text-white">
+              {session.user?.name || 'User'}
+            </p>
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              {session.user?.email}
+            </p>
+          </div>
+          
+          <div className="py-1">
+            <Link
+              href="/account"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 transition-colors"
+            >
+              <span>👤</span>
+              My Account
+            </Link>
+            <Link
+              href="/support/feedback"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 transition-colors"
+            >
+              <span>💬</span>
+              Send Feedback
+            </Link>
+            <Link
+              href="/support/emergency"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 transition-colors"
+            >
+              <span>🚨</span>
+              Emergency Resources
+            </Link>
+          </div>
+          
+          <div className="border-t border-gray-200 dark:border-gray-700 py-1">
+            <button
+              onClick={handleSignOut}
+              className="flex items-center gap-3 w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 transition-colors text-left"
+            >
+              <span>🚪</span>
+              Sign Out
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+});
+AccountMenu.displayName = 'AccountMenu';
+
 export const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -230,19 +354,29 @@ export const Header = () => {
             ? "bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-sm" 
             : "bg-white/50 dark:bg-gray-900/50 "
         }`}
+        role="banner"
       >
         <div className="container mx-auto px-4">
-          <nav className="flex items-center justify-between h-16 lg:h-20">
+          <nav 
+            className="flex items-center justify-between h-16 lg:h-20"
+            role="navigation"
+            aria-label="Main navigation"
+          >
             <Logo />
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center gap-1">
-              {navigation.map((item) => (
-                <NavItem key={item.href} item={item} isActive={pathname === item.href} />
-              ))}
+              <ul className="flex items-center gap-1" role="menubar">
+                {navigation.map((item) => (
+                  <li key={item.href} role="none">
+                    <NavItem item={item} isActive={pathname === item.href} />
+                  </li>
+                ))}
+              </ul>
               <div className="ml-4 pl-4 border-l border-gray-200 dark:border-gray-700 flex items-center gap-4">
                 <LanguageSelector />
                 <ThemeToggle />
+                <AccountMenu />
               </div>
             </div>
 
@@ -268,32 +402,41 @@ export const Header = () => {
             <motion.div
               {...mobileMenuAnimations.menu}
               className="fixed right-0 top-0 bottom-0 w-full max-w-sm bg-white dark:bg-gray-900 shadow-2xl z-50 lg:hidden"
+              id="mobile-menu"
+              role="dialog"
+              aria-label="Mobile navigation menu"
             >
               <div className="flex flex-col h-full">
                 <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-800">
                   <span className="font-semibold text-lg text-blue-900 dark:text-blue-100">{t('header.navigation.menu')}</span>
                   <MenuButton isOpen={true} onClick={() => setIsMobileMenuOpen(false)} />
                 </div>
-                <nav className="flex-1 p-4 overflow-y-auto">
-                  <div className="space-y-1">
+                <nav 
+                  className="flex-1 p-4 overflow-y-auto"
+                  role="navigation"
+                  aria-label="Mobile navigation"
+                >
+                  <ul className="space-y-1" role="menubar">
                     {navigation.map((item) => {
                       const isActive = pathname === item.href;
                       return (
-                        <Link
-                          key={item.name}
-                          href={item.href}
-                          prefetch={false}
-                          className={`block px-4 py-3 rounded-lg text-base font-medium will-change-colors transition-colors duration-200 ${
-                            isActive
-                              ? "bg-blue-50 text-blue-900 dark:bg-blue-900/30 dark:text-blue-100"
-                              : "text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-800"
-                          }`}
-                        >
-                          {t(item.name)}
-                        </Link>
+                        <li key={item.name} role="none">
+                          <Link
+                            href={item.href}
+                            prefetch={false}
+                            role="menuitem"
+                            className={`block px-4 py-3 rounded-lg text-base font-medium will-change-colors transition-colors duration-200 ${
+                              isActive
+                                ? "bg-blue-50 text-blue-900 dark:bg-blue-900/30 dark:text-blue-100"
+                                : "text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-800"
+                            }`}
+                          >
+                            {t(item.name)}
+                          </Link>
+                        </li>
                       );
                     })}
-                  </div>
+                  </ul>
                 </nav>
               </div>
             </motion.div>
