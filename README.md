@@ -247,6 +247,190 @@ desist_web/
 └── utils/              # Utility functions and helpers
 ```
 
+---
+
+# 🚀 DESIST Website & Mobile App – Developer Handover
+
+This handover document summarizes the current state of the project and identifies **launch-critical issues and enhancements** to be addressed for a successful Day 1 launch. All listed issues should be tracked in GitHub and resolved prior to public release.
+
+## 🚩 Launch-Critical GitHub Issues
+
+### 1. SSO/Unified Authentication Integration
+**Priority: Critical**
+- Implement and test true single sign-on (SSO) between website and mobile app (Supabase Auth)
+- Ensure user profile and session data sync across platforms
+- Validate NextAuth.js integration with mobile app authentication flow
+- Test session persistence and token refresh mechanisms
+
+**Current Status:** NextAuth.js implemented with Google OAuth and credentials providers. Prisma adapter configured.
+
+### 2. Community & Incident/Event System Testing
+**Priority: Critical**
+- Perform live scenario and load tests for:
+  - Forums and community post creation/moderation
+  - Incident reporting and status tracking
+  - Event/RSVP systems and calendar integration
+  - Notification and moderation protocols
+- Validate reliability, privacy, and abuse prevention
+- Test emergency escalation workflows
+
+**Current Status:** Basic community framework implemented. Needs comprehensive testing and moderation tools.
+
+### 3. Accessibility & Usability Final Audit
+**Priority: High**
+- Conduct end-to-end accessibility and usability review with real users
+- Include screen reader and low-vision testers in review process
+- Address any WCAG 2.1 AA compliance gaps discovered
+- Test keyboard navigation and focus management across all pages
+- Validate color contrast and text sizing options
+
+**Current Status:** Accessibility infrastructure in place with axe-core integration. Needs user testing validation.
+
+### 4. Privacy Policy, Terms of Service, Security Disclosures
+**Priority: Critical**
+- Finalize, review, and prominently link user-facing privacy policy and terms of service
+- Create security disclosure policy and vulnerability reporting process
+- Ensure GDPR and CCPA compliance documentation
+- Obtain legal sign-off on all documents
+- Implement consent management for analytics and data collection
+
+**Current Status:** Privacy-compliant analytics implemented. Legal documents need creation and review.
+
+### 5. Newsletter Signup & Early Access Pipeline
+**Priority: High**
+- Integrate newsletter signup with real email service provider (Mailchimp, ConvertKit, etc.)
+- Implement GDPR-compliant opt-in/opt-out mechanisms
+- Set up tested notification pipeline for launch announcements
+- Create email templates for onboarding and engagement
+- Test unsubscribe and preference management flows
+
+**Current Status:** Newsletter signup component implemented. Needs real email service integration.
+
+### 6. Incident/Event Reporting Reliability
+**Priority: Critical**
+- Validate incident/event reporting under load conditions
+- Test status updates and notification systems
+- Confirm security measures for sensitive incident data
+- Implement rate limiting and abuse prevention
+- Test emergency escalation and crisis response workflows
+
+**Current Status:** Basic incident reporting framework exists. Needs security hardening and load testing.
+
+### 7. Support/Helpdesk & Onboarding Materials
+**Priority: High**
+- Finalize and test support ticket system workflow
+- Create comprehensive onboarding guides for new users
+- Develop troubleshooting documentation and FAQ
+- Implement help system integration with mobile app
+- Test support escalation and response time SLAs
+
+**Current Status:** Feedback system implemented. Needs help documentation and workflow optimization.
+
+### 8. Performance & SEO Final Pass
+**Priority: High**
+- Run comprehensive Lighthouse audits on all major pages
+- Optimize Core Web Vitals (LCP, FID, CLS) for all routes
+- Confirm search engine indexing and sitemap generation
+- Implement structured data for better search visibility
+- Test performance under load conditions
+- Optimize bundle size and implement proper caching strategies
+
+**Current Status:** Basic performance optimization in place. Needs comprehensive audit and optimization.
+
+### 9. Database Migration & Production Readiness
+**Priority: Critical**
+- Migrate from SQLite to production database (PostgreSQL recommended)
+- Set up database backup and recovery procedures
+- Implement database monitoring and alerting
+- Test data migration scripts and rollback procedures
+- Configure production environment variables and secrets management
+
+**Current Status:** Prisma schema defined with SQLite. Needs production database setup.
+
+### 10. Security Hardening & Penetration Testing
+**Priority: Critical**
+- Conduct security audit of authentication and authorization systems
+- Implement proper input validation and SQL injection prevention
+- Set up rate limiting and DDoS protection
+- Configure CSP headers and security middleware
+- Perform penetration testing on all user-facing endpoints
+
+**Current Status:** Basic security measures in place. Needs comprehensive security audit.
+
+## 🛠️ How to Use This Document
+
+- **Track each item as a separate GitHub issue** using the template below
+- Assign responsible team members and set deadlines prior to launch
+- Link this document in your project README and main issue tracker
+- Update and check off items as they are resolved
+- Regular status meetings to review progress on launch-critical items
+
+## 📋 GitHub Issue Template
+
+When creating issues for the items above, use this template:
+
+```yaml
+title: "[LAUNCH] {Short Issue Name}"
+labels: ["launch-critical", "website", "mobile-app", "priority-high"]
+description: |
+  ## Description
+  {Detailed description of the issue and why it is critical for launch}
+  
+  ## Acceptance Criteria
+  - [ ] {Specific, testable criteria}
+  - [ ] {Additional criteria}
+  
+  ## Testing Requirements
+  - [ ] {Testing requirements}
+  
+  ## Definition of Done
+  - [ ] Code reviewed and approved
+  - [ ] Tests passing
+  - [ ] Documentation updated
+  - [ ] Security review completed (if applicable)
+  
+assignees: [team-member]
+milestone: "Launch Readiness"
+due-date: {YYYY-MM-DD}
+```
+
+## 🎯 Launch Timeline & Dependencies
+
+**Target Launch Date:** September 15, 2025
+
+**Critical Path Items (must be completed first):**
+1. Database Migration & Production Setup
+2. SSO/Authentication Integration
+3. Security Hardening & Audit
+4. Privacy Policy & Legal Documents
+
+**Parallel Track Items:**
+- Performance & SEO Optimization
+- Accessibility Final Audit
+- Support Documentation
+- Newsletter Integration
+
+## 📊 Current Technical Debt & Known Issues
+
+- **NextAuth.js SessionProvider Integration:** Minor issues with provider wrapping identified
+- **Mobile Responsiveness:** Some components need mobile optimization
+- **Error Handling:** Need comprehensive error boundaries and fallbacks
+- **Loading States:** Implement proper loading indicators across all async operations
+- **Form Validation:** Enhance client-side validation and error messaging
+
+## 🔗 Related Resources
+
+- [Phase 4 Implementation Status](./docs/phase-4-status.md)
+- [Security Requirements](./docs/security-requirements.md)
+- [Performance Benchmarks](./docs/performance-benchmarks.md)
+- [Accessibility Guidelines](./docs/accessibility-guidelines.md)
+
+---
+
+**⚠️ IMPORTANT: All launch-critical items must be completed and verified prior to Day 1 public launch.**
+
+---
+
 ## 🚀 Available Scripts
 
 - `yarn dev` or `npm run dev`: Start development server

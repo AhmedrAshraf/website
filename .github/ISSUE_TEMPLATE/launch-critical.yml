@@ -1,0 +1,154 @@
+name: 🚀 Launch Critical
+description: Use this template for issues that must be resolved before launch
+title: "[LAUNCH CRITICAL] "
+labels: ["launch-critical", "priority-high"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🚨 Launch Critical Issue
+        
+        This issue is marked as **launch-critical** and must be resolved before the September 15, 2025 launch date.
+        
+        Please provide detailed information about this critical issue below.
+
+  - type: input
+    id: deadline
+    attributes:
+      label: Target Resolution Date
+      description: When does this need to be completed? (Default is 1 week before launch)
+      placeholder: "September 8, 2025"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: What type of issue is this?
+      options:
+        - Authentication & SSO
+        - Security & Privacy
+        - Performance & Scalability
+        - Accessibility & Compliance
+        - Infrastructure & DevOps
+        - Legal & Compliance
+        - Documentation & Support
+        - Testing & QA
+        - Database & Data Migration
+        - Email & Communication
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: impact
+    attributes:
+      label: Launch Impact
+      description: What happens if this isn't resolved before launch?
+      options:
+        - 🚨 Launch Blocker - Cannot launch without this
+        - ⚠️ Major Risk - High risk of launch failure
+        - 📉 Quality Issue - Significant impact on user experience
+        - 🐛 Minor Issue - Low impact but still important
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Detailed Description
+      description: Provide a comprehensive description of the issue
+      placeholder: Describe the issue, its impact, and why it's critical for launch...
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: What needs to be completed for this issue to be considered resolved?
+      placeholder: |
+        - [ ] Criteria 1
+        - [ ] Criteria 2
+        - [ ] Criteria 3
+    validations:
+      required: true
+
+  - type: textarea
+    id: testing-requirements
+    attributes:
+      label: Testing Requirements
+      description: How should this be tested before marking as complete?
+      placeholder: |
+        - [ ] Unit tests pass
+        - [ ] Integration tests pass
+        - [ ] Manual testing completed
+        - [ ] Security review completed
+        - [ ] Performance benchmarks met
+    validations:
+      required: true
+
+  - type: input
+    id: technical-contact
+    attributes:
+      label: Technical Owner
+      description: Who is responsible for implementing this solution?
+      placeholder: "@username or team name"
+    validations:
+      required: false
+
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies
+      description: What other issues or external factors does this depend on?
+      placeholder: List any blocking dependencies or related issues...
+    validations:
+      required: false
+
+  - type: textarea
+    id: rollback-plan
+    attributes:
+      label: Rollback Plan
+      description: If this change causes issues, how can it be quickly reverted?
+      placeholder: Describe the rollback procedure or fallback approach...
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: launch-readiness
+    attributes:
+      label: Launch Readiness Checklist
+      description: Mark applicable items for this issue
+      options:
+        - label: Security review required
+        - label: Performance testing required
+        - label: Legal review required
+        - label: Accessibility testing required
+        - label: Documentation update required
+        - label: Monitoring/alerting setup required
+        - label: Deployment plan documented
+        - label: Support team notification required
+
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Environment Impact
+      description: Which environments are affected?
+      multiple: true
+      options:
+        - Development
+        - Staging
+        - Production
+        - All Environments
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other relevant information, screenshots, logs, or links
+      placeholder: Add any additional context that would help resolve this issue...
+    validations:
+      required: false
