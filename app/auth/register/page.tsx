@@ -41,9 +41,9 @@ export default function RegisterPage() {
 
       if (error) throw error;
 
-      // Show success message and redirect to login
+      // Show success message and redirect to dashboard
       alert("Registration successful! Please check your email to verify your account.");
-      router.push("/auth/login");
+      router.push("/");
     } catch (error) {
       setError(error instanceof Error ? error.message : "An unknown error occurred");
     } finally {
