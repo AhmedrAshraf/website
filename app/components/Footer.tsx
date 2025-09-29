@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { Logo } from "./Header";
+import { motion } from "framer-motion";
 import { useTranslation } from "../context/TranslationContext";
 
 export function Footer() {
@@ -9,7 +9,7 @@ export function Footer() {
   const year = new Date().getFullYear();
   return (
     <footer 
-      className="bg-white/50 dark:bg-gray-900/50 text-gray-900 dark:text-white"
+      className="bg-white/50 dark:bg-gray-950 text-gray-900 dark:text-white"
       role="contentinfo"
       aria-label="Footer"
     >

@@ -69,7 +69,7 @@ const NavItem = memo(({ item, isActive }: { item: typeof navigation[number]; isA
     <Link
       href={item.href}
       prefetch={false}
-      className={`relative px-4 py-2 rounded-full text-sm font-medium will-change-colors transition-colors duration-200 ${
+      className={`relative px-3 py-2 rounded-full text-sm font-medium will-change-colors transition-colors duration-200 ${
         isActive
           ? "text-blue-900 dark:text-blue-100"
           : "text-gray-700 hover:text-blue-900 dark:text-gray-300 dark:hover:text-blue-100"
@@ -138,10 +138,10 @@ const LanguageSelector = memo(() => {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-1 px-3 py-1.5 rounded-full text-sm font-medium text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 transition-colors"
+        className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 transition-colors"
       >
         <span className="text-lg">{flagEmoji[language]}</span>
-        {t(`header.language.${language}`)}
+        <span className="hidden sm:inline">{t(`header.language.${language}`)}</span>
         <svg
           className={`w-4 h-4 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
           fill="none"
@@ -152,13 +152,13 @@ const LanguageSelector = memo(() => {
         </svg>
       </button>
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-32 bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-1">
+        <div className="absolute right-0 mt-2 w-36 bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-1 z-50">
           <button
             onClick={() => {
               setLanguage('en');
               setIsOpen(false);
             }}
-            className="w-full flex items-center gap-2 px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
+            className="w-full flex items-center gap-2 px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 transition-colors"
           >
             <span className="text-lg">{flagEmoji['en']}</span> {t('header.language.en')}
           </button>
@@ -167,7 +167,7 @@ const LanguageSelector = memo(() => {
               setLanguage('es');
               setIsOpen(false);
             }}
-            className="w-full flex items-center gap-2 px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
+            className="w-full flex items-center gap-2 px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 transition-colors"
           >
             <span className="text-lg">{flagEmoji['es']}</span> {t('header.language.es')}
           </button>
@@ -202,7 +202,7 @@ const AccountMenu = memo(() => {
 
   if (!session) {
     return (
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-3">
         <Link
           href="/auth/signin"
           className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
@@ -210,7 +210,7 @@ const AccountMenu = memo(() => {
           Sign In
         </Link>
         <Link
-          href="/auth/signin"
+          href="/auth/register"
           className="px-4 py-2 text-sm font-medium bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
         >
           Get Started
@@ -351,12 +351,12 @@ export const Header = () => {
       <header 
         className={`fixed top-0 w-full z-50 will-change-[background,box-shadow] transition-[background,box-shadow] duration-200 ${
           scrolled 
-            ? "bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-sm" 
+            ? "bg-white/90 dark:bg-gray-950/50 backdrop-blur-md shadow-sm" 
             : "bg-white/50 dark:bg-gray-900/50 "
         }`}
         role="banner"
       >
-        <div className="container mx-auto px-4">
+        <div className="mx-auto px-4 lg:px-6">
           <nav 
             className="flex items-center justify-between h-16 lg:h-20"
             role="navigation"
@@ -365,15 +365,15 @@ export const Header = () => {
             <Logo />
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-1">
-              <ul className="flex items-center gap-1" role="menubar">
+            <div className="hidden lg:flex items-center">
+              <ul className="flex items-center gap-2" role="menubar">
                 {navigation.map((item) => (
                   <li key={item.href} role="none">
                     <NavItem item={item} isActive={pathname === item.href} />
                   </li>
                 ))}
               </ul>
-              <div className="ml-4 pl-4 border-l border-gray-200 dark:border-gray-700 flex items-center gap-4">
+              <div className="ml-8 pl-6 border-l border-gray-200 dark:border-gray-700 flex items-center gap-3">
                 <LanguageSelector />
                 <ThemeToggle />
                 <AccountMenu />
@@ -381,7 +381,7 @@ export const Header = () => {
             </div>
 
             {/* Mobile Menu Button */}
-            <div className="flex items-center gap-4 lg:hidden">
+            <div className="flex items-center gap-3 lg:hidden">
               <LanguageSelector />
               <ThemeToggle />
               <MenuButton isOpen={isMobileMenuOpen} onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} />
@@ -407,16 +407,16 @@ export const Header = () => {
               aria-label="Mobile navigation menu"
             >
               <div className="flex flex-col h-full">
-                <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-800">
+                <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-800">
                   <span className="font-semibold text-lg text-blue-900 dark:text-blue-100">{t('header.navigation.menu')}</span>
                   <MenuButton isOpen={true} onClick={() => setIsMobileMenuOpen(false)} />
                 </div>
                 <nav 
-                  className="flex-1 p-4 overflow-y-auto"
+                  className="flex-1 p-6 overflow-y-auto"
                   role="navigation"
                   aria-label="Mobile navigation"
                 >
-                  <ul className="space-y-1" role="menubar">
+                  <ul className="space-y-2" role="menubar">
                     {navigation.map((item) => {
                       const isActive = pathname === item.href;
                       return (
