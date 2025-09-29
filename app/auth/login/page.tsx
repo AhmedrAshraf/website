@@ -20,12 +20,19 @@ export default function LoginPage() {
     setError(null);
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
       if (error) throw error;
+
+      // Save user ID to localStorage
+      if (data.user) {
+        localStorage.setItem('userId', data.user.id);
+        localStorage.setItem('userEmail', data.user.email || '');
+        localStorage.setItem('userName', data.user.user_metadata?.full_name || '');
+      }
 
       router.push("/community");
     } catch (error) {

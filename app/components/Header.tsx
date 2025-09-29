@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useTranslation } from "../context/TranslationContext";
 import { useSession, signOut } from "next-auth/react";
+import supabase from "../../utils/supabase";
 
 const navigation = [
   { name: "header.navigation.about", href: "/about" },
@@ -181,7 +182,7 @@ LanguageSelector.displayName = 'LanguageSelector';
 // Account menu component
 const AccountMenu = memo(() => {
   const [isOpen, setIsOpen] = useState(false);
-  const { data: session } = useSession();
+  const [user, setUser] = useState<{id: string, email: string, name: string} | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -195,12 +196,39 @@ const AccountMenu = memo(() => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const handleSignOut = () => {
-    signOut({ callbackUrl: '/' });
+  // Check localStorage for user data on component mount
+  useEffect(() => {
+    const userId = localStorage.getItem('userId');
+    const userEmail = localStorage.getItem('userEmail');
+    const userName = localStorage.getItem('userName');
+    
+    if (userId && userEmail) {
+      setUser({
+        id: userId,
+        email: userEmail,
+        name: userName || userEmail
+      });
+    }
+  }, []);
+
+  const handleSignOut = async () => {
+    // Clear localStorage
+    localStorage.removeItem('userId');
+    localStorage.removeItem('userEmail');
+    localStorage.removeItem('userName');
+    
+    // Sign out from Supabase
+    await supabase.auth.signOut();
+    
+    // Reset user state
+    setUser(null);
     setIsOpen(false);
+    
+    // Redirect to home
+    window.location.href = '/';
   };
 
-  if (!session) {
+  if (!user) {
     return (
       <div className="flex items-center gap-3">
         <Link
@@ -226,10 +254,10 @@ const AccountMenu = memo(() => {
         className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 transition-colors"
       >
         <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
-          {(session.user?.name || session.user?.email || 'U')[0].toUpperCase()}
+          {(user.name || user.email || 'U')[0].toUpperCase()}
         </div>
         <span className="hidden sm:inline">
-          {session.user?.name || 'Account'}
+          {user.name || 'Account'}
         </span>
         <svg
           className={`w-4 h-4 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
@@ -245,10 +273,10 @@ const AccountMenu = memo(() => {
         <div className="absolute right-0 mt-2 w-64 bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-2 z-50">
           <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
             <p className="text-sm font-medium text-gray-900 dark:text-white">
-              {session.user?.name || 'User'}
+              {user.name || 'User'}
             </p>
             <p className="text-sm text-gray-600 dark:text-gray-400">
-              {session.user?.email}
+              {user.email}
             </p>
           </div>
           

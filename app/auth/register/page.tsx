@@ -28,7 +28,7 @@ export default function RegisterPage() {
     }
 
     try {
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
@@ -40,6 +40,13 @@ export default function RegisterPage() {
       });
 
       if (error) throw error;
+
+      // Save user ID to localStorage (even before email verification)
+      if (data.user) {
+        localStorage.setItem('userId', data.user.id);
+        localStorage.setItem('userEmail', data.user.email || '');
+        localStorage.setItem('userName', fullName);
+      }
 
       // Show success message and redirect to dashboard
       alert("Registration successful! Please check your email to verify your account.");
