@@ -1,9 +1,10 @@
 "use client";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import dynamic from 'next/dynamic';
 import Link from "next/link";
 import supabase from "../../../utils/supabase";
+import { validateIncidentLocation } from "../../../utils/incidentValidation";
 
 const LocationPicker = dynamic(() => import("../../components/LocationPicker"), {
   ssr: false,
@@ -81,6 +82,7 @@ export default function ReportIncidentPage() {
     attachment: null as File | null,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [validationError, setValidationError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -89,13 +91,23 @@ export default function ReportIncidentPage() {
     }
     
     setIsSubmitting(true);
+    setValidationError("");
     
     try {
       const lat = parseFloat(formData.location.lat.toString()) || 0;
       const lng = parseFloat(formData.location.lng.toString()) || 0;
 
       if (isNaN(lat) || isNaN(lng)) {
-        alert("Invalid coordinates. Please select a valid location.");
+        setValidationError("Invalid coordinates. Please select a valid location.");
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Validate location for duplicate prevention
+      const validation = await validateIncidentLocation(lat, lng);
+      if (!validation.isValid) {
+        setValidationError(validation.message);
+        setIsSubmitting(false);
         return;
       }
 
@@ -108,13 +120,7 @@ export default function ReportIncidentPage() {
         description: formattedDescription,
         latitude: lat,
         longitude: lng,
-        location_json: {
-          lat: lat,
-          lng: lng,
-          address: formData.location.address || "No address provided"
-        },
-        location_text: `POINT(${lng} ${lat})`,
-        address: formData.location.address || "No address provided",
+        location: formData.location.address || "No address provided",
         created_at: new Date().toISOString(),
         status: 'active'
       };
@@ -127,12 +133,19 @@ export default function ReportIncidentPage() {
       if (insertResult.error) {
         console.error("Error inserting data:", insertResult.error);
         
+        // Check if it's a duplicate prevention error from database
+        if (insertResult.error.message && insertResult.error.message.includes("Many reports already in this area")) {
+          setValidationError(insertResult.error.message);
+          setIsSubmitting(false);
+          return;
+        }
+        
         const simplifiedData = {
           type: formData.type,
           description: formattedDescription,
           latitude: lat,
           longitude: lng,
-          address: formData.location.address || "No address provided",
+          location: formData.location.address || "No address provided",
           created_at: new Date().toISOString(),
           status: 'active'
         };
@@ -144,7 +157,14 @@ export default function ReportIncidentPage() {
 
         if (insertResult.error) {
           console.error("Fallback error:", insertResult.error);
-          alert("Failed to submit report. Please try again.");
+          
+          // Check if fallback also has duplicate prevention error
+          if (insertResult.error.message && insertResult.error.message.includes("Many reports already in this area")) {
+            setValidationError(insertResult.error.message);
+          } else {
+            setValidationError("Failed to submit report. Please try again.");
+          }
+          setIsSubmitting(false);
           return;
         }
       }
@@ -178,7 +198,7 @@ export default function ReportIncidentPage() {
       window.location.href = "/incidents";
     } catch (error) {
       console.error("Unexpected error:", error);
-      alert("An unexpected error occurred. Please try again.");
+      setValidationError("An unexpected error occurred. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -203,12 +223,12 @@ export default function ReportIncidentPage() {
     }
   };
 
-  const handleLocationSelect = (location: { lat: number; lng: number; address: string }) => {
+  const handleLocationSelect = useCallback((location: { lat: number; lng: number; address: string }) => {
     setFormData(prev => ({
       ...prev,
       location
     }));
-  };
+  }, []);
 
   const nextStep = () => {
     if (currentStep === 1 && !formData.type) {
@@ -381,6 +401,39 @@ export default function ReportIncidentPage() {
                       onChange={handleVideoChange}
                       className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
                     />
+                  </div>
+                </motion.div>
+              )}
+
+              {/* Validation Error Message */}
+              {validationError && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4"
+                >
+                  <div className="flex items-start">
+                    <svg
+                      className="w-5 h-5 text-red-600 dark:text-red-400 mt-0.5 mr-3 flex-shrink-0"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                    <div>
+                      <h3 className="text-sm font-medium text-red-800 dark:text-red-200">
+                        Unable to Submit Report
+                      </h3>
+                      <p className="mt-1 text-sm text-red-700 dark:text-red-300">
+                        {validationError}
+                      </p>
+                    </div>
                   </div>
                 </motion.div>
               )}
