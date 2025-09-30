@@ -49,7 +49,7 @@ export default function RegisterPage() {
       }
 
       // Show success message and redirect to dashboard
-      alert("Registration successful! Please check your email to verify your account.");
+      // alert("Registration successful! Please check your email to verify your account.");
       router.push("/");
     } catch (error) {
       setError(error instanceof Error ? error.message : "An unknown error occurred");
