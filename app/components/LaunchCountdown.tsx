@@ -77,7 +77,7 @@ export const LaunchCountdown: React.FC<LaunchCountdownProps> = ({
     const interval = setInterval(updateTimer, 1000);
 
     return () => clearInterval(interval);
-  }, [launchDate, onLaunchComplete]);
+  }, [launchDate]); // Removed onLaunchComplete from dependencies
 
   const handleEmailSignup = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -121,19 +121,19 @@ export const LaunchCountdown: React.FC<LaunchCountdownProps> = ({
     { 
       title: 'Official Launch', 
       status: isLaunched ? 'completed' : 'upcoming', 
-      date: new Date(launchDate).toLocaleDateString(),
+      date: new Date(launchDate).toISOString().split('T')[0],
       description: 'Full platform goes live'
     }
   ];
 
   if (isLaunched) {
     return (
-      <div className={`${className}`}>
+      <div className={`${className} flex items-center justify-center`}>
         <motion.div
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.8, type: "spring" }}
-          className="text-center"
+          className="text-center w-full max-w-2xl mx-auto"
         >
           <Card className="border-green-200 dark:border-green-800 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20">
             <CardContent className="p-8">

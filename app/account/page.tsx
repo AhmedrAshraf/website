@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+"use client"
 
 import { useState, useEffect } from 'react';
-import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { BadgeShowcase } from '../community/components/BadgeShowcase';
+import supabase from '../../utils/supabase';
 
 interface UserProfile {
   id: string;
@@ -30,10 +31,10 @@ interface UserStats {
 }
 
 export default function AccountPage() {
-  const { data: session, status } = useSession();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState('dashboard');
   const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState<any>(null);
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [stats, setStats] = useState<UserStats>({
     totalBadges: 0,
@@ -43,46 +44,61 @@ export default function AccountPage() {
   });
 
   useEffect(() => {
-    if (status === 'loading') return;
-    
-    if (status === 'unauthenticated') {
-      router.push('/auth/signin');
-      return;
-    }
+    const getUser = async () => {
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        
+        if (!user) {
+          router.push('/auth/login');
+          return;
+        }
 
-    // Simulate loading user data
-    setTimeout(() => {
-      if (session?.user) {
-        setProfile({
-          id: (session.user as any).id || '',
-          name: session.user.name || null,
-          email: session.user.email || '',
-          bio: null,
-          location: null,
-          pronouns: null,
-          isPrivate: false,
-          showEmail: false,
-          showLocation: false,
-          allowMessages: true,
-          createdAt: new Date().toISOString(),
-        });
+        setUser(user);
 
-        setStats({
-          totalBadges: 8,
-          communityPosts: 12,
-          resourcesShared: 5,
-          helpfulVotes: 34,
-        });
+        // Simulate loading user data
+        setTimeout(() => {
+          setProfile({
+            id: user.id,
+            name: user.user_metadata?.full_name || user.email || null,
+            email: user.email || '',
+            bio: null,
+            location: null,
+            pronouns: null,
+            isPrivate: false,
+            showEmail: false,
+            showLocation: false,
+            allowMessages: true,
+            createdAt: user.created_at || new Date().toISOString(),
+          });
+
+          setStats({
+            totalBadges: 8,
+            communityPosts: 12,
+            resourcesShared: 5,
+            helpfulVotes: 34,
+          });
+          
+          setIsLoading(false);
+        }, 1000);
+      } catch (error) {
+        console.error('Error getting user:', error);
+        router.push('/auth/login');
       }
-      setIsLoading(false);
-    }, 1000);
-  }, [session, status, router]);
+    };
 
-  const handleSignOut = () => {
-    signOut({ callbackUrl: '/' });
+    getUser();
+  }, [router]);
+
+  const handleSignOut = async () => {
+    try {
+      await supabase.auth.signOut();
+      router.push('/');
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
   };
 
-  if (status === 'loading' || isLoading) {
+  if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
         <div className="text-center">
@@ -111,7 +127,7 @@ export default function AccountPage() {
                 My Account
               </h1>
               <p className="text-gray-600 dark:text-gray-400">
-                Welcome back, {profile?.name || session?.user?.name || 'User'}
+                Welcome back, {profile?.name || user?.user_metadata?.full_name || 'User'}
               </p>
             </div>
             <div className="flex items-center gap-4">
@@ -138,10 +154,10 @@ export default function AccountPage() {
               <CardContent className="p-6">
                 <div className="text-center mb-6">
                   <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-3">
-                    {(profile?.name || session?.user?.name || 'U')[0].toUpperCase()}
+                    {(profile?.name || user?.user_metadata?.full_name || 'U')[0].toUpperCase()}
                   </div>
                   <h3 className="font-semibold text-gray-900 dark:text-white">
-                    {profile?.name || session?.user?.name || 'Anonymous User'}
+                    {profile?.name || user?.user_metadata?.full_name || 'Anonymous User'}
                   </h3>
                   <p className="text-sm text-gray-600 dark:text-gray-400">
                     Member since {new Date(profile?.createdAt || Date.now()).getFullYear()}

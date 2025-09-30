@@ -71,15 +71,15 @@
           "description": "Connect with and support community members in need.",
           "link": "Learn More"
         },
-        "events": {
-          "title": "Event Support",
-          "description": "Help organize and run community events and workshops.",
-          "link": "View Events"
+        "education": {
+          "title": "Education & Training",
+          "description": "Help educate community members about safety and empowerment.",
+          "link": "Get Involved"
         },
-        "resources": {
-          "title": "Resource Distribution",
-          "description": "Assist in distributing resources to community members.",
-          "link": "Get Started"
+        "advocacy": {
+          "title": "Advocacy & Support",
+          "description": "Advocate for community rights and provide support services.",
+          "link": "Join Advocacy"
         }
       }
     },
@@ -92,10 +92,10 @@
           "description": "Join forces with like-minded organizations to amplify impact.",
           "link": "Partner With Us"
         },
-        "sharing": {
-          "title": "Resource Sharing",
-          "description": "Share resources and expertise to strengthen our community.",
-          "link": "Share Resources"
+        "institutions": {
+          "title": "Institutional Partnerships",
+          "description": "Partner with educational and community institutions.",
+          "link": "Learn More"
         },
         "initiatives": {
           "title": "Joint Initiatives",

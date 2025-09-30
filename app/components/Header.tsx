@@ -7,7 +7,6 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useTranslation } from "../context/TranslationContext";
-import { useSession, signOut } from "next-auth/react";
 import supabase from "../../utils/supabase";
 
 const navigation = [
@@ -182,7 +181,8 @@ LanguageSelector.displayName = 'LanguageSelector';
 // Account menu component
 const AccountMenu = memo(() => {
   const [isOpen, setIsOpen] = useState(false);
-  const [user, setUser] = useState<{id: string, email: string, name: string} | null>(null);
+  const [user, setUser] = useState<{id: string, email: string, name: string, image?: string} | null>(null);
+  const [loading, setLoading] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -196,43 +196,75 @@ const AccountMenu = memo(() => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Check localStorage for user data on component mount
+  // Check for user session on mount and listen for auth changes
   useEffect(() => {
-    const userId = localStorage.getItem('userId');
-    const userEmail = localStorage.getItem('userEmail');
-    const userName = localStorage.getItem('userName');
+    // Set loading to false immediately to show buttons
+    setLoading(false);
     
-    if (userId && userEmail) {
-      setUser({
-        id: userId,
-        email: userEmail,
-        name: userName || userEmail
-      });
-    }
+    const getUser = async () => {
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+          setUser({
+            id: user.id,
+            email: user.email || '',
+            name: user.user_metadata?.full_name || user.email || '',
+            image: user.user_metadata?.avatar_url
+          });
+        }
+      } catch (error) {
+        console.error('Error getting user:', error);
+      }
+    };
+
+    getUser();
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      console.log('Auth state changed:', event, session?.user?.email);
+      if (session?.user) {
+        setUser({
+          id: session.user.id,
+          email: session.user.email || '',
+          name: session.user.user_metadata?.full_name || session.user.email || '',
+          image: session.user.user_metadata?.avatar_url
+        });
+      } else {
+        setUser(null);
+      }
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
   }, []);
 
   const handleSignOut = async () => {
-    // Clear localStorage
-    localStorage.removeItem('userId');
-    localStorage.removeItem('userEmail');
-    localStorage.removeItem('userName');
-    
-    // Sign out from Supabase
-    await supabase.auth.signOut();
-    
-    // Reset user state
-    setUser(null);
-    setIsOpen(false);
-    
-    // Redirect to home
-    window.location.href = '/';
+    try {
+      await supabase.auth.signOut();
+      setUser(null);
+      setIsOpen(false);
+      // Clear any localStorage data
+      localStorage.removeItem('userId');
+      localStorage.removeItem('userEmail');
+      localStorage.removeItem('userName');
+      window.location.href = '/';
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
   };
+
+  if (loading) {
+    return (
+      <div className="w-8 h-8 bg-gray-200 dark:bg-gray-700 rounded-full animate-pulse" />
+    );
+  }
 
   if (!user) {
     return (
       <div className="flex items-center gap-3">
         <Link
-          href="/auth/signin"
+          href="/auth/login"
           className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
         >
           Sign In
@@ -253,9 +285,17 @@ const AccountMenu = memo(() => {
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 transition-colors"
       >
-        <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
-          {(user.name || user.email || 'U')[0].toUpperCase()}
-        </div>
+        {user.image ? (
+          <img
+            src={user.image}
+            alt="Profile"
+            className="w-8 h-8 rounded-full object-cover"
+          />
+        ) : (
+          <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
+            {(user.name || user.email || 'U')[0].toUpperCase()}
+          </div>
+        )}
         <span className="hidden sm:inline">
           {user.name || 'Account'}
         </span>
@@ -331,6 +371,7 @@ export const Header = () => {
   const ticking = useRef(false);
   const shouldReduceMotion = useReducedMotion();
   const { t } = useTranslation();
+
 
   // Optimized scroll handler with RAF
   const handleScroll = useCallback(() => {

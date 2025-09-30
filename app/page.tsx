@@ -100,15 +100,15 @@ export default function JoinPage() {
   ];
 
   return (
-    <div className="relative min-h-screen">
+    <div className="relative min-h-screen ">
       {/* Announcement System */}
-      <AnnouncementSystem position="top" maxVisible={2} />
+      {/* <AnnouncementSystem position="top" maxVisible={2} /> */}
 
       {/* Hero Section */}
       <HeroSection
         title={t('home.hero.title')}
         description={t('home.hero.description')}
-        imageSrc="/hero-bg.jpg"
+        imageSrc="/images/community/community-hero.jpg"
         imageAlt="DESIST Community"
       >
         <div className="mt-12">
