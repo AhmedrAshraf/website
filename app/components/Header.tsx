@@ -366,6 +366,7 @@ AccountMenu.displayName = 'AccountMenu';
 export const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [user, setUser] = useState<{id: string, email: string, name: string, image?: string} | null>(null);
   const pathname = usePathname();
   const lastScrollY = useRef(0);
   const ticking = useRef(false);
@@ -393,10 +394,58 @@ export const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
+  // Check for user session
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+          setUser({
+            id: user.id,
+            email: user.email || '',
+            name: user.user_metadata?.full_name || user.email || '',
+            image: user.user_metadata?.avatar_url
+          });
+        }
+      } catch (error) {
+        console.error('Error getting user:', error);
+      }
+    };
+
+    getUser();
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (session?.user) {
+        setUser({
+          id: session.user.id,
+          email: session.user.email || '',
+          name: session.user.user_metadata?.full_name || session.user.email || '',
+          image: session.user.user_metadata?.avatar_url
+        });
+      } else {
+        setUser(null);
+      }
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, []);
+
   // Close mobile menu on navigation
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [pathname]);
+
+  // Filter navigation based on user authentication
+  const filteredNavigation = navigation.filter(item => {
+    // Hide incidents tab if user is not logged in
+    if (item.href === '/incidents' && !user) {
+      return false;
+    }
+    return true;
+  });
 
   const mobileMenuAnimations = {
     overlay: {
@@ -436,7 +485,7 @@ export const Header = () => {
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center">
               <ul className="flex items-center gap-2" role="menubar">
-                {navigation.map((item) => (
+                {filteredNavigation.map((item) => (
                   <li key={item.href} role="none">
                     <NavItem item={item} isActive={pathname === item.href} />
                   </li>
@@ -486,7 +535,7 @@ export const Header = () => {
                   aria-label="Mobile navigation"
                 >
                   <ul className="space-y-2" role="menubar">
-                    {navigation.map((item) => {
+                    {filteredNavigation.map((item) => {
                       const isActive = pathname === item.href;
                       return (
                         <li key={item.name} role="none">
