@@ -24,6 +24,9 @@ interface Incident {
   address: string;
   created_at: string;
   status: string;
+  user_id?: string;
+  user_name?: string;
+  user_email?: string;
 }
 
 const transformIncidentToLocation = (incident: Incident) => ({
@@ -291,6 +294,11 @@ export default function AllIncidentsPage() {
                           📍 {incident.address || 'Location not specified'}
                         </p>
                         <p>🕒 {formatDate(incident.created_at)}</p>
+                        {incident.user_name && (
+                          <p className="text-xs text-gray-400 dark:text-gray-500">
+                            👤 Reported by: {incident.user_name}
+                          </p>
+                        )}
                       </div>
                     </motion.div>
                   ))}
@@ -317,6 +325,11 @@ export default function AllIncidentsPage() {
                               📍 {incident.address || 'Location not specified'}
                             </span>
                             <span>🕒 {formatDate(incident.created_at)}</span>
+                            {incident.user_name && (
+                              <span className="text-xs text-gray-400 dark:text-gray-500">
+                                👤 {incident.user_name}
+                              </span>
+                            )}
                           </div>
                         </div>
                         <span className={`px-3 py-1 rounded-full text-sm ${getStatusColor(incident.status)}`}>

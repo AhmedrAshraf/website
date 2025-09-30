@@ -20,6 +20,9 @@ export interface Database {
           updated_at: string
           latitude: number
           longitude: number
+          user_id?: string
+          user_name?: string
+          user_email?: string
         }
         Insert: {
           id?: never
@@ -31,6 +34,9 @@ export interface Database {
           updated_at?: string
           latitude: number
           longitude: number
+          user_id?: string
+          user_name?: string
+          user_email?: string
         }
         Update: {
           id?: never
@@ -42,6 +48,9 @@ export interface Database {
           updated_at?: string
           latitude?: number
           longitude?: number
+          user_id?: string
+          user_name?: string
+          user_email?: string
         }
       }
     }

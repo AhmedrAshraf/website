@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import dynamic from 'next/dynamic';
 import Link from "next/link";
 import supabase from "../../../utils/supabase";
@@ -70,6 +70,7 @@ const INCIDENT_DESCRIPTIONS = {
 
 export default function ReportIncidentPage() {
   const [currentStep, setCurrentStep] = useState(1);
+  const [user, setUser] = useState<{id: string, email: string, name: string} | null>(null);
   const [formData, setFormData] = useState({
     type: "",
     description: {} as Record<string, string>,
@@ -83,6 +84,43 @@ export default function ReportIncidentPage() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [validationError, setValidationError] = useState("");
+
+  // Get current user on component mount
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+          setUser({
+            id: user.id,
+            email: user.email || '',
+            name: user.user_metadata?.full_name || user.email || 'Anonymous User'
+          });
+        }
+      } catch (error) {
+        console.error('Error getting user:', error);
+      }
+    };
+
+    getUser();
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (session?.user) {
+        setUser({
+          id: session.user.id,
+          email: session.user.email || '',
+          name: session.user.user_metadata?.full_name || session.user.email || 'Anonymous User'
+        });
+      } else {
+        setUser(null);
+      }
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -122,7 +160,13 @@ export default function ReportIncidentPage() {
         longitude: lng,
         location: formData.location.address || "No address provided",
         created_at: new Date().toISOString(),
-        status: 'active'
+        status: 'active',
+        // Include user information if available
+        ...(user && {
+          user_id: user.id,
+          user_name: user.name,
+          user_email: user.email
+        })
       };
 
       let insertResult = await supabase
@@ -147,7 +191,13 @@ export default function ReportIncidentPage() {
           longitude: lng,
           location: formData.location.address || "No address provided",
           created_at: new Date().toISOString(),
-          status: 'active'
+          status: 'active',
+          // Include user information if available
+          ...(user && {
+            user_id: user.id,
+            user_name: user.name,
+            user_email: user.email
+          })
         };
 
         insertResult = await supabase
