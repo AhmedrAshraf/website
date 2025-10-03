@@ -87,11 +87,11 @@ export default function StealthModePage() {
                 and document events without anyone knowing you&apos;re using a safety app.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-                <Link href="/support/emergency">
+                {/* <Link href="/support/emergency">
                   <button className="py-3 px-6 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors">
                     Emergency Resources
                   </button>
-                </Link>
+                </Link> */}
                 <AppDownloadCTA />
               </div>
             </motion.div>
@@ -310,11 +310,11 @@ export default function StealthModePage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <AppDownloadCTA />
-              <Link href="/support/emergency">
+              {/* <Link href="/support/emergency">
                 <button className="py-3 px-6 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 rounded-lg font-medium transition-colors hover:bg-gray-50 dark:hover:bg-gray-700">
                   Emergency Resources
                 </button>
-              </Link>
+              </Link> */}
             </div>
           </motion.div>
         </div>
