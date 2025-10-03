@@ -684,10 +684,15 @@
     "navigation": {
       "about": "Acerca de",
       "community": "Comunidad",
+      "campaigns": "Campañas",
       "incidents": "Incidentes",
       "legalHelp": "Ayuda Legal",
       "resources": "Recursos",
       "support": "Soporte",
+      "emergency": "Emergencia",
+      "features": "Características",
+      "stealthMode": "Modo Sigilo",
+      "press": "Kit de Prensa",
       "download": "Descargar",
       "contact": "Contacto",
       "menu": "Menú"
