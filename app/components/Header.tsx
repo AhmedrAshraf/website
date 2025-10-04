@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useTranslation } from "../context/TranslationContext";
 import supabase from "../../utils/supabase";
+import { LaunchCountdown } from "./LaunchCountdown";
 
 // Core navigation items (always visible)
 const coreNavigation = [
@@ -376,7 +377,7 @@ const AccountMenu = memo(() => {
           }`}
         >
           {/* Hover background */}
-          <div className="absolute inset-0 bg-blue-100 dark:bg-blue-900/40 rounded -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+          <div className="absolute inset-0 bg-blue-100 dark:bg-blue-900/40 rounded -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-gray-400" />
           Account
           {(pathname === '/auth/login' || pathname === '/auth/register' || pathname === '/account') && !shouldReduceMotion && (
             <motion.div
@@ -686,6 +687,7 @@ export const Header = () => {
               <QuickActions />
               
               <div className="ml-8 pl-6 border-l border-gray-200 dark:border-gray-700 flex items-center gap-3">
+                <LaunchCountdown variant="header" />
                 <LanguageSelector />
                 <ThemeToggle />
                 <AccountMenu />
@@ -694,6 +696,7 @@ export const Header = () => {
 
             {/* Mobile Menu Button */}
             <div className="flex items-center gap-3 lg:hidden">
+              <LaunchCountdown variant="header" />
               <LanguageSelector />
               <ThemeToggle />
               <MenuButton isOpen={isMobileMenuOpen} onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} />

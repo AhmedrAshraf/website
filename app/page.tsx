@@ -4,7 +4,6 @@ import { StatsDisplay } from "./components/StatsDisplay";
 import { FeatureGrid } from "./components/FeatureGrid";
 import { CallToAction } from "./components/CallToAction";
 import FeaturedNews from './components/FeaturedNews';
-import { LaunchCountdown } from "./components/LaunchCountdown";
 import { NewsletterSignup } from "./components/NewsletterSignup";
 import { AnnouncementSystem } from "./components/AnnouncementSystem";
 import { useTranslation } from "./context/TranslationContext";
@@ -111,13 +110,6 @@ export default function JoinPage() {
         imageSrc="/images/community/community-hero.jpg"
         imageAlt="DESIST Community"
       >
-        <div className="mt-12">
-          <LaunchCountdown 
-            launchDate="2025-09-15T09:00:00Z"
-            title="DESIST Official Launch"
-            description="Join thousands already making a difference"
-          />
-        </div>
       </HeroSection>
 
       {/* Impact Stats */}

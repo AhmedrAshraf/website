@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import { LaunchCountdown } from '../components/LaunchCountdown';
 import { Card, CardHeader, CardTitle, CardContent } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
@@ -164,15 +163,6 @@ export default function PressPage() {
           <Button className="bg-blue-600 hover:bg-blue-700">
             📥 Download Complete Press Kit (ZIP)
           </Button>
-        </div>
-
-        {/* Launch Countdown */}
-        <div className="mb-16">
-          <LaunchCountdown 
-            launchDate="2025-09-15T09:00:00Z"
-            title="DESIST Official Launch"
-            description="The comprehensive anti-harassment platform goes live"
-          />
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8">
