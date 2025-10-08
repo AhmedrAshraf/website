@@ -4,7 +4,7 @@ import { useState, useCallback, useEffect } from "react";
 import dynamic from 'next/dynamic';
 import Link from "next/link";
 import supabase from "../../../utils/supabase";
-import { validateIncidentLocation } from "../../../utils/incidentValidation";
+import { validateIncidentReport, getIncidentRestrictionsConfig } from "../../../utils/incidentValidation";
 
 const LocationPicker = dynamic(() => import("../../components/LocationPicker"), {
   ssr: false,
@@ -71,6 +71,8 @@ const INCIDENT_DESCRIPTIONS = {
 export default function ReportIncidentPage() {
   const [currentStep, setCurrentStep] = useState(1);
   const [user, setUser] = useState<{id: string, email: string, name: string} | null>(null);
+  const [userLocation, setUserLocation] = useState<{lat: number, lng: number} | null>(null);
+  const [locationPermissionGranted, setLocationPermissionGranted] = useState(false);
   const [formData, setFormData] = useState({
     type: "",
     description: {} as Record<string, string>,
@@ -85,6 +87,33 @@ export default function ReportIncidentPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [validationError, setValidationError] = useState("");
 
+  // Get user's current location
+  const getUserLocation = useCallback(() => {
+    if (!navigator.geolocation) {
+      console.log('Geolocation is not supported by this browser.');
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setUserLocation({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        });
+        setLocationPermissionGranted(true);
+      },
+      (error) => {
+        console.log('Error getting location:', error);
+        setLocationPermissionGranted(false);
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 300000 // 5 minutes
+      }
+    );
+  }, []);
+
   // Get current user on component mount
   useEffect(() => {
     const getUser = async () => {
@@ -96,6 +125,8 @@ export default function ReportIncidentPage() {
             email: user.email || '',
             name: user.user_metadata?.full_name || user.email || 'Anonymous User'
           });
+          // Get user's location after user is set
+          getUserLocation();
         }
       } catch (error) {
         console.error('Error getting user:', error);
@@ -141,8 +172,22 @@ export default function ReportIncidentPage() {
         return;
       }
 
-      // Validate location for duplicate prevention
-      const validation = await validateIncidentLocation(lat, lng);
+      // Check if user is logged in
+      if (!user) {
+        setValidationError("You must be logged in to report incidents.");
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Comprehensive validation using new system
+      const validation = await validateIncidentReport(
+        user.id,
+        lat,
+        lng,
+        userLocation?.lat,
+        userLocation?.lng
+      );
+      
       if (!validation.isValid) {
         setValidationError(validation.message);
         setIsSubmitting(false);
@@ -334,6 +379,77 @@ export default function ReportIncidentPage() {
             <p className="text-lg text-gray-600 dark:text-gray-400">
               Help keep our community informed and safe by reporting incidents in your area.
             </p>
+          </motion.div>
+
+          {/* Incident Reporting Requirements */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-6 mb-8"
+          >
+            <div className="flex items-start gap-4">
+              <div className="flex-shrink-0">
+                <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+              </div>
+              <div className="flex-1">
+                <h3 className="text-lg font-semibold text-blue-900 dark:text-blue-100 mb-2">
+                  Incident Reporting Requirements
+                </h3>
+                <div className="space-y-2 text-sm text-blue-800 dark:text-blue-200">
+                  <div className="flex items-center gap-2">
+                    <div className={`w-2 h-2 rounded-full ${user ? 'bg-green-500' : 'bg-red-500'}`}></div>
+                    <span>
+                      <strong>Account Required:</strong> {user ? '✓ You are logged in' : '✗ You must be logged in'}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className={`w-2 h-2 rounded-full ${locationPermissionGranted ? 'bg-green-500' : 'bg-yellow-500'}`}></div>
+                    <span>
+                      <strong>Location Access:</strong> {locationPermissionGranted ? '✓ Location detected' : '⚠ Location permission needed for distance validation'}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                    <span>
+                      <strong>Distance Limit:</strong> You can only report incidents within 10 miles of your current location
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                    <span>
+                      <strong>Monthly Limit:</strong> Maximum 3 incident reports per month per user
+                    </span>
+                  </div>
+                </div>
+                {!user && (
+                  <div className="mt-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+                    <p className="text-sm text-red-800 dark:text-red-200">
+                      <strong>Action Required:</strong> Please log in to your account to report incidents. Only registered users can submit reports.
+                    </p>
+                  </div>
+                )}
+                {user && !locationPermissionGranted && (
+                  <div className="mt-4 p-3 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
+                    <div className="flex items-center justify-between">
+                      <p className="text-sm text-yellow-800 dark:text-yellow-200">
+                        <strong>Location Permission:</strong> Allow location access to validate incident distance from your current location.
+                      </p>
+                      <button
+                        onClick={getUserLocation}
+                        className="ml-4 px-3 py-1 bg-yellow-600 hover:bg-yellow-700 text-white text-xs rounded-md transition-colors"
+                      >
+                        Allow Location
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
           </motion.div>
 
           {/* Progress Steps */}
