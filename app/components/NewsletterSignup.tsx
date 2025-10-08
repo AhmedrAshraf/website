@@ -2,9 +2,6 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Card, CardHeader, CardTitle, CardContent } from './ui/Card';
-import { Button } from './ui/Button';
-import { Badge } from './ui/Badge';
 
 interface NewsletterSignupProps {
   variant?: 'compact' | 'full' | 'modal';
@@ -96,7 +93,7 @@ export const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
       >
         {isSubmitted ? (
           <motion.div 
-            className="text-center text-primary-600 dark:text-primary-400"
+            className="text-center text-blue-600 dark:text-blue-400"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
@@ -117,17 +114,15 @@ export const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
               placeholder="Your email"
               required
               disabled={isLoading}
-              className="flex-1 px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-gray-800 dark:text-white text-sm transition-all duration-200"
+              className="flex-1 px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white text-sm transition-all duration-200"
             />
-            <Button 
+            <button 
               type="submit" 
-              size="sm" 
               disabled={isLoading}
-              variant="primary"
-              className="transition-all duration-200"
+              className="px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white text-sm font-medium rounded-lg transition-all duration-200"
             >
               {isLoading ? '...' : 'Subscribe'}
-            </Button>
+            </button>
           </motion.form>
         )}
       </motion.div>
@@ -139,11 +134,11 @@ export const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
       className={`${className}`}
       {...fadeInVariants}
     >
-      <Card className="overflow-hidden relative">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-50 to-secondary-100 dark:from-gray-900 dark:to-gray-800 opacity-50" />
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden relative">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-gray-900 dark:to-gray-800 opacity-50" />
         <div className="absolute inset-0 bg-[url('/community-pattern.svg')] opacity-5" />
         
-        <CardHeader className="relative z-10">
+        <div className="relative z-10 p-6">
           <motion.div 
             className="text-center"
             variants={staggerVariants}
@@ -151,21 +146,18 @@ export const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
             animate="animate"
             custom={0}
           >
-            <Badge 
-              variant="default"
-              className="mb-4 bg-primary-500 hover:bg-primary-600 text-white shadow-sm"
-            >
+            <div className="inline-flex items-center px-3 py-1 bg-blue-600 text-white text-sm font-medium rounded-full mb-4 shadow-sm">
               📬 Stay Updated
-            </Badge>
-            <CardTitle className="text-2xl mb-2 font-bold text-gray-900 dark:text-white">
+            </div>
+            <h2 className="text-2xl mb-2 font-bold text-gray-900 dark:text-white">
               Join the DESIST Newsletter
-            </CardTitle>
+            </h2>
             <p className="text-gray-600 dark:text-gray-300">
               Get the latest updates on safety features, community stories, and platform news
             </p>
           </motion.div>
-        </CardHeader>
-        <CardContent className="relative z-10">
+        </div>
+        <div className="relative z-10 px-6 pb-6">
           {isSubmitted ? (
             <motion.div 
               className="text-center py-8"
@@ -181,25 +173,19 @@ export const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
               >
                 🎉
               </motion.div>
-              <h3 className="text-xl font-semibold text-primary-700 dark:text-primary-300 mb-2">
+              <h3 className="text-xl font-semibold text-blue-700 dark:text-blue-300 mb-2">
                 Welcome to the Community!
               </h3>
               <p className="text-gray-600 dark:text-gray-300 mb-4">
                 Thank you for subscribing! You&apos;ll receive your first newsletter within 24 hours.
               </p>
               <div className="flex justify-center gap-2">
-                <Badge 
-                  variant="secondary"
-                  className="bg-primary-100 text-primary-800 dark:bg-primary-900/20 dark:text-primary-300"
-                >
+                <span className="inline-flex items-center px-3 py-1 bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-300 text-sm font-medium rounded-full">
                   ✓ Email confirmed
-                </Badge>
-                <Badge 
-                  variant="success"
-                  className="bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-300"
-                >
+                </span>
+                <span className="inline-flex items-center px-3 py-1 bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-300 text-sm font-medium rounded-full">
                   ✓ Preferences saved
-                </Badge>
+                </span>
               </div>
             </motion.div>
           ) : (
@@ -227,7 +213,7 @@ export const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
                   placeholder="Enter your email address"
                   required
                   disabled={isLoading}
-                  className="w-full px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-800 dark:text-white transition-all duration-200"
+                  className="w-full px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-white transition-all duration-200"
                 />
               </motion.div>
 
@@ -250,8 +236,8 @@ export const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
                       custom={index + 2}
                       className={`p-3 rounded-lg border transition-all duration-200 text-left hover:shadow-sm ${
                         interests.includes(option.id)
-                          ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300 shadow-sm'
-                          : 'border-gray-200 dark:border-gray-700 hover:border-primary-300 dark:hover:border-primary-600 hover:bg-gray-50 dark:hover:bg-gray-800'
+                          ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 shadow-sm'
+                          : 'border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 hover:bg-gray-50 dark:hover:bg-gray-800'
                       }`}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
@@ -267,7 +253,7 @@ export const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
 
               {/* Privacy Notice */}
               <motion.div 
-                className="text-xs text-gray-500 dark:text-gray-400 bg-secondary-50 dark:bg-gray-800 p-3 rounded-lg border border-gray-100 dark:border-gray-700"
+                className="text-xs text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-800 p-3 rounded-lg border border-gray-100 dark:border-gray-700"
                 variants={staggerVariants}
                 custom={8}
               >
@@ -285,28 +271,25 @@ export const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.99 }}
               >
-                <Button
+                <button
                   type="submit"
-                  variant="primary"
-                  className="w-full group relative overflow-hidden transition-all duration-300 hover:shadow-md"
                   disabled={isLoading || !email.trim()}
+                  className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-medium py-3 px-4 rounded-lg transition-all duration-300 hover:shadow-md group relative overflow-hidden"
                 >
                   {isLoading ? (
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center justify-center gap-2">
                       <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
                       Subscribing...
                     </div>
                   ) : (
-                    <span className="group-hover:text-primary-100">📬 Subscribe to Newsletter</span>
+                    <span className="group-hover:text-blue-100">📬 Subscribe to Newsletter</span>
                   )}
-                  {/* <div className="absolute inset-0 bg-gradient-to-r from-primary-600 to-primary-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="absolute right-0 w-12 h-full bg-white/20 transform translate-x-full group-hover:translate-x-0 transition-transform duration-300" /> */}
-                </Button>
+                </button>
               </motion.div>
 
               {/* Benefits */}
               <motion.div 
-                className="mt-6 p-4 bg-gradient-to-r from-primary-50 to-secondary-100 dark:from-primary-900/10 dark:to-secondary-900/10 rounded-lg border border-gray-100 dark:border-gray-700"
+                className="mt-6 p-4 bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/10 dark:to-blue-800/10 rounded-lg border border-gray-100 dark:border-gray-700"
                 variants={staggerVariants}
                 custom={10}
               >
@@ -315,27 +298,27 @@ export const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
                 </h4>
                 <ul className="space-y-1 text-sm text-gray-600 dark:text-gray-300">
                   <li className="flex items-center gap-2">
-                    <span className="text-primary-600 dark:text-primary-400">✓</span>
+                    <span className="text-blue-600 dark:text-blue-400">✓</span>
                     Weekly safety tips and best practices
                   </li>
                   <li className="flex items-center gap-2">
-                    <span className="text-primary-600 dark:text-primary-400">✓</span>
+                    <span className="text-blue-600 dark:text-blue-400">✓</span>
                     Early access to new features
                   </li>
                   <li className="flex items-center gap-2">
-                    <span className="text-primary-600 dark:text-primary-400">✓</span>
+                    <span className="text-blue-600 dark:text-blue-400">✓</span>
                     Community success stories
                   </li>
                   <li className="flex items-center gap-2">
-                    <span className="text-primary-600 dark:text-primary-400">✓</span>
+                    <span className="text-blue-600 dark:text-blue-400">✓</span>
                     Exclusive event invitations
                   </li>
                 </ul>
               </motion.div>
             </motion.form>
           )}
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </motion.div>
   );
 };

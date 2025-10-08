@@ -21,7 +21,7 @@ const INCIDENT_RESTRICTIONS_CONFIG = {
  * @param lat2 Latitude of second point
  * @param lon2 Longitude of second point
  * @returns Distance in kilometers
- */
+*/
 function calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
   const R = 6371; // Earth's radius in kilometers
   const dLat = (lat2 - lat1) * Math.PI / 180;
