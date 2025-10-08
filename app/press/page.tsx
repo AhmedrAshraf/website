@@ -1,23 +1,4 @@
-import { Metadata } from 'next';
-import { Card, CardHeader, CardTitle, CardContent } from '../components/ui/Card';
-import { Button } from '../components/ui/Button';
-import { Badge } from '../components/ui/Badge';
-
-export const metadata: Metadata = {
-  title: 'Press Kit - DESIST',
-  description: 'Media resources, company information, and press materials for DESIST - the anti-harassment platform.',
-  openGraph: {
-    title: 'DESIST Press Kit',
-    description: 'Media resources and press materials for DESIST - building safer digital communities.',
-    images: ['/press/desist-logo-social.jpg'],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'DESIST Press Kit',
-    description: 'Media resources and press materials for DESIST.',
-    images: ['/press/desist-logo-social.jpg'],
-  },
-};
+'use client';
 
 export default function PressPage() {
   const pressAssets = {
@@ -146,13 +127,13 @@ export default function PressPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-      <div className="container mx-auto px-4 py-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <div className="container mx-auto px-4 py-16">
         {/* Header */}
         <div className="text-center mb-12">
-          <Badge className="mb-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+          <div className="inline-flex items-center px-3 py-1 bg-blue-600 text-white text-sm font-medium rounded-full mb-4 shadow-sm">
             📰 Press Kit
-          </Badge>
+          </div>
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
             DESIST Press Kit
           </h1>
@@ -160,20 +141,23 @@ export default function PressPage() {
             Media resources, company information, and brand assets for journalists, 
             partners, and content creators covering DESIST.
           </p>
-          <Button className="bg-blue-600 hover:bg-blue-700">
+          <button 
+            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200 shadow-lg hover:shadow-xl"
+            onClick={() => window.open('/press/complete-press-kit.zip', '_blank')}
+          >
             📥 Download Complete Press Kit (ZIP)
-          </Button>
+          </button>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-8">
             {/* Company Overview */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Company Overview</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
+              <div className="mb-6">
+                <h2 className="text-xl font-bold text-gray-900 dark:text-white">Company Overview</h2>
+              </div>
+              <div className="space-y-4">
                 <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
                   DESIST is a comprehensive anti-harassment platform that combines cutting-edge 
                   AI technology with community-driven support to create safer digital spaces. 
@@ -192,15 +176,15 @@ export default function PressPage() {
                     </div>
                   ))}
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
             {/* Key Features */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Key Features & Capabilities</CardTitle>
-              </CardHeader>
-              <CardContent>
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
+              <div className="mb-6">
+                <h2 className="text-xl font-bold text-gray-900 dark:text-white">Key Features & Capabilities</h2>
+              </div>
+              <div>
                 <div className="grid md:grid-cols-2 gap-4">
                   {keyFeatures.map((feature, index) => (
                     <div key={index} className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
@@ -213,15 +197,15 @@ export default function PressPage() {
                     </div>
                   ))}
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
             {/* Press Releases */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Recent Press Releases</CardTitle>
-              </CardHeader>
-              <CardContent>
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
+              <div className="mb-6">
+                <h2 className="text-xl font-bold text-gray-900 dark:text-white">Recent Press Releases</h2>
+              </div>
+              <div>
                 <div className="space-y-4">
                   {pressReleases.map((release, index) => (
                     <div key={index} className="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
@@ -230,9 +214,9 @@ export default function PressPage() {
                           <span className="text-sm text-gray-500 dark:text-gray-400">
                             {release.date}
                           </span>
-                          <Badge variant="outline" className="text-xs">
+                          <span className="inline-flex items-center px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs font-medium rounded-full border border-gray-200 dark:border-gray-600">
                             Press Release
-                          </Badge>
+                          </span>
                         </div>
                         <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
                           {release.title}
@@ -241,25 +225,24 @@ export default function PressPage() {
                           {release.summary}
                         </p>
                       </div>
-                      <Button 
-                        variant="outline" 
-                        size="sm"
+                      <button 
+                        className="px-3 py-1 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200"
                         onClick={() => window.open(release.downloadUrl, '_blank')}
                       >
                         📄 Download
-                      </Button>
+                      </button>
                     </div>
                   ))}
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
             {/* Brand Assets */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Brand Assets</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-6">
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
+              <div className="mb-6">
+                <h2 className="text-xl font-bold text-gray-900 dark:text-white">Brand Assets</h2>
+              </div>
+              <div className="space-y-6">
                 {/* Logos */}
                 <div>
                   <h3 className="font-semibold text-gray-900 dark:text-white mb-3">Logos</h3>
@@ -278,13 +261,12 @@ export default function PressPage() {
                               {logo.size}
                             </span>
                           </div>
-                          <Button 
-                            variant="outline" 
-                            size="sm"
+                          <button 
+                            className="px-3 py-1 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200"
                             onClick={() => window.open(logo.downloadUrl, '_blank')}
                           >
                             ⬇️
-                          </Button>
+                          </button>
                         </div>
                       </div>
                     ))}
@@ -329,30 +311,29 @@ export default function PressPage() {
                               {screenshot.description}
                             </p>
                           </div>
-                          <Button 
-                            variant="outline" 
-                            size="sm"
+                          <button 
+                            className="px-3 py-1 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200"
                             onClick={() => window.open(screenshot.downloadUrl, '_blank')}
                           >
                             🖼️ View
-                          </Button>
+                          </button>
                         </div>
                       </div>
                     ))}
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </div>
 
           {/* Sidebar */}
           <div className="space-y-6">
             {/* Media Contact */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Media Contact</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
+              <div className="mb-6">
+                <h2 className="text-xl font-bold text-gray-900 dark:text-white">Media Contact</h2>
+              </div>
+              <div className="space-y-3">
                 <div>
                   <div className="font-semibold text-gray-900 dark:text-white">
                     {mediaContact.name}
@@ -384,18 +365,18 @@ export default function PressPage() {
                     </span>
                   </div>
                 </div>
-                <Button className="w-full bg-green-600 hover:bg-green-700 mt-4">
+                <button className="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200 mt-4">
                   📞 Schedule Interview
-                </Button>
-              </CardContent>
-            </Card>
+                </button>
+              </div>
+            </div>
 
             {/* Quick Facts */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Quick Facts</CardTitle>
-              </CardHeader>
-              <CardContent>
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
+              <div className="mb-6">
+                <h2 className="text-xl font-bold text-gray-900 dark:text-white">Quick Facts</h2>
+              </div>
+              <div>
                 <div className="space-y-3">
                   <div className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
                     <div className="font-semibold text-blue-900 dark:text-blue-300">
@@ -422,40 +403,37 @@ export default function PressPage() {
                     </div>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
             {/* Social Media */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Follow DESIST</CardTitle>
-              </CardHeader>
-              <CardContent>
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
+              <div className="mb-6">
+                <h2 className="text-xl font-bold text-gray-900 dark:text-white">Follow DESIST</h2>
+              </div>
+              <div>
                 <div className="space-y-3">
-                  <Button 
-                    variant="outline" 
-                    className="w-full justify-start"
+                  <button 
+                    className="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200 text-left"
                     onClick={() => window.open('https://twitter.com/desistorg', '_blank')}
                   >
                     🐦 @desistorg
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    className="w-full justify-start"
+                  </button>
+                  <button 
+                    className="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200 text-left"
                     onClick={() => window.open('https://linkedin.com/company/desist', '_blank')}
                   >
                     💼 DESIST Inc.
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    className="w-full justify-start"
+                  </button>
+                  <button 
+                    className="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200 text-left"
                     onClick={() => window.open('https://github.com/desistorg', '_blank')}
                   >
                     💻 github.com/desistorg
-                  </Button>
+                  </button>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </div>
         </div>
       </div>
