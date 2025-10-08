@@ -224,12 +224,12 @@ export default function LoginPage() {
                       </label>
                     </div>
 
-                    <Link
+                    {/* <Link
                       href="/auth/forgot-password"
                       className="text-sm font-medium text-primary-600 hover:text-primary-500 dark:text-primary-400 dark:hover:text-primary-300 transition-colors"
                     >
                       Forgot password?
-                    </Link>
+                    </Link> */}
                   </motion.div>
 
                   {/* Submit Button */}
