@@ -11,23 +11,31 @@ import supabase from "../../utils/supabase";
 import { LaunchCountdown } from "./LaunchCountdown";
 
 // Core navigation items (always visible)
-const coreNavigation = [
+const getCoreNavigation = (isLoggedIn: boolean) => [
   { name: "header.navigation.about", href: "/about" },
   { name: "header.navigation.resources", href: "/resources" },
   { name: "header.navigation.support", href: "/support" },
   { name: "header.navigation.contact", href: "/contact" },
-  { name: "header.navigation.legalHelp", href: "/legal-help" },
+  // Swap Incidents and Legal Help based on login status
+  ...(isLoggedIn 
+    ? [{ name: "header.navigation.incidents", href: "/incidents" }]
+    : [{ name: "header.navigation.legalHelp", href: "/legal-help" }]
+  ),
 ] as const;
 
 // Navigation groups with dropdowns
-const navigationGroups = {
+const getNavigationGroups = (isLoggedIn: boolean) => ({
   community: {
     label: "header.navigation.community",
     href: "/community",
     items: [
       { name: "header.navigation.community", href: "/community", isMain: true },
       { name: "header.navigation.campaigns", href: "/community/campaigns" },
-      { name: "header.navigation.incidents", href: "/incidents" },
+      // Include Legal Help in community dropdown when logged in
+      ...(isLoggedIn 
+        ? [{ name: "header.navigation.legalHelp", href: "/legal-help" }]
+        : []
+      ),
     ]
   },
   features: {
@@ -38,7 +46,7 @@ const navigationGroups = {
       { name: "header.navigation.press", href: "/press" },
     ]
   }
-};
+});
 
 const flagEmoji = {
   en: "🇺🇸",
@@ -77,7 +85,7 @@ export const Logo = memo(() => {
 Logo.displayName = 'Logo';
 
 // Optimized navigation item with reduced motion support
-const NavItem = memo(({ item, isActive }: { item: typeof coreNavigation[number]; isActive: boolean }) => {
+const NavItem = memo(({ item, isActive }: { item: { name: string; href: string }; isActive: boolean }) => {
   const shouldReduceMotion = useReducedMotion();
   const { t } = useTranslation();
 
@@ -612,24 +620,10 @@ export const Header = () => {
     setIsMobileMenuOpen(false);
   }, [pathname]);
 
-  // Filter navigation based on user authentication
-  const filteredCoreNavigation = coreNavigation;
-  
-  const filteredNavigationGroups = Object.fromEntries(
-    Object.entries(navigationGroups).map(([key, group]) => [
-      key,
-      {
-        ...group,
-        items: group.items.filter(item => {
-          // Hide incidents tab if user is not logged in
-          if (item.href === '/incidents' && !user) {
-            return false;
-          }
-          return true;
-        })
-      }
-    ])
-  );
+  // Get navigation based on user authentication status
+  const isLoggedIn = !!user;
+  const coreNavigation = getCoreNavigation(isLoggedIn);
+  const navigationGroups = getNavigationGroups(isLoggedIn);
 
   const mobileMenuAnimations = {
     overlay: {
@@ -670,13 +664,13 @@ export const Header = () => {
             <div className="hidden lg:flex items-center">
               <ul className="flex items-center gap-2" role="menubar">
                 {/* Core Navigation Items */}
-                {filteredCoreNavigation.map((item) => (
+                {coreNavigation.map((item) => (
                   <li key={item.href} role="none">
                     <NavItem item={item} isActive={pathname === item.href} />
                   </li>
                 ))}
                 {/* Navigation Groups with Dropdowns */}
-                {Object.entries(filteredNavigationGroups).map(([key, group]) => (
+                {Object.entries(navigationGroups).map(([key, group]) => (
                   <li key={key} role="none">
                     <NavGroup groupKey={key} group={group} />
                   </li>
@@ -733,7 +727,7 @@ export const Header = () => {
                 >
                   <ul className="space-y-2" role="menubar">
                     {/* Core Navigation Items */}
-                    {filteredCoreNavigation.map((item) => {
+                    {coreNavigation.map((item) => {
                       const isActive = pathname === item.href;
                       return (
                         <li key={item.href} role="none">
@@ -756,7 +750,7 @@ export const Header = () => {
                     })}
                     
                     {/* Navigation Groups Items (flattened for mobile) */}
-                    {Object.entries(filteredNavigationGroups).map(([key, group]: [string, any]) => 
+                    {Object.entries(navigationGroups).map(([key, group]: [string, any]) => 
                       group.items.map((item: any) => {
                         const isActive = pathname === item.href;
                         return (
