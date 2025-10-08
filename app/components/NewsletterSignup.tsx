@@ -116,7 +116,7 @@ export const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
               disabled={isLoading}
               className="flex-1 px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white text-sm transition-all duration-200"
             />
-            <button 
+            <button
               type="submit" 
               disabled={isLoading}
               className="px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white text-sm font-medium rounded-lg transition-all duration-200"

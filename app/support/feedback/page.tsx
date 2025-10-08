@@ -3,8 +3,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Card, CardContent, CardHeader } from '../../components/ui/Card';
-import { Button } from '../../components/ui/Button';
+// Removed Card and Button imports - using direct styling instead
 
 interface FeedbackForm {
   type: 'bug' | 'feedback' | 'feature-request' | 'safety-concern';
@@ -86,46 +85,43 @@ export default function FeedbackPage() {
           transition={{ duration: 0.6 }}
           className="max-w-md w-full"
         >
-          <Card>
-            <CardContent className="p-8 text-center">
-              <div className="text-6xl mb-4">✅</div>
-              <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
-                Thank You!
-              </h2>
-              <p className="text-gray-600 dark:text-gray-400 mb-6">
-                Your {form.type === 'bug' ? 'bug report' : form.type === 'feature-request' ? 'feature request' : form.type} has been submitted successfully. 
-                We appreciate your feedback and will review it carefully.
-              </p>
-              <div className="space-y-3">
-                <Button 
-                  onClick={() => {
-                    setSubmitted(false);
-                    setForm({
-                      type: 'feedback',
-                      title: '',
-                      description: '',
-                      category: '',
-                      priority: 'medium',
-                      email: '',
-                      userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : '',
-                      url: typeof window !== 'undefined' ? window.location.href : '',
-                      attachments: []
-                    });
-                  }}
-                  className="w-full"
-                >
-                  Submit Another Report
-                </Button>
-                <Button 
-                  variant="outline" 
-                  onClick={() => window.location.href = '/'}
-                  className="w-full"
-                >
-                  Return to Home
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+          <div className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg text-center">
+            <div className="text-6xl mb-4">✅</div>
+            <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
+              Thank You!
+            </h2>
+            <p className="text-gray-600 dark:text-gray-400 mb-6">
+              Your {form.type === 'bug' ? 'bug report' : form.type === 'feature-request' ? 'feature request' : form.type} has been submitted successfully. 
+              We appreciate your feedback and will review it carefully.
+            </p>
+            <div className="space-y-3">
+              <button 
+                onClick={() => {
+                  setSubmitted(false);
+                  setForm({
+                    type: 'feedback',
+                    title: '',
+                    description: '',
+                    category: '',
+                    priority: 'medium',
+                    email: '',
+                    userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : '',
+                    url: typeof window !== 'undefined' ? window.location.href : '',
+                    attachments: []
+                  });
+                }}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-lg font-medium transition-colors duration-200"
+              >
+                Submit Another Report
+              </button>
+              <button 
+                onClick={() => window.location.href = '/'}
+                className="w-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-4 py-3 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200"
+              >
+                Return to Home
+              </button>
+            </div>
+          </div>
         </motion.div>
       </div>
     );
@@ -152,13 +148,13 @@ export default function FeedbackPage() {
 
           <form onSubmit={handleSubmit} className="space-y-8">
             {/* Feedback Type Selection */}
-            <Card>
-              <CardHeader>
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
+              <div className="mb-6">
                 <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
                   What type of feedback are you sharing?
                 </h2>
-              </CardHeader>
-              <CardContent>
+              </div>
+              <div>
                 <div className="grid md:grid-cols-2 gap-4">
                   {feedbackTypes.map((type) => (
                     <button
@@ -185,18 +181,18 @@ export default function FeedbackPage() {
                     </button>
                   ))}
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
             {/* Priority Level (for bugs and safety concerns) */}
             {(form.type === 'bug' || form.type === 'safety-concern') && (
-              <Card>
-                <CardHeader>
+              <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
+                <div className="mb-6">
                   <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
                     Priority Level
                   </h2>
-                </CardHeader>
-                <CardContent>
+                </div>
+                <div>
                   <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-3">
                     {priorities.map((priority) => (
                       <button
@@ -223,18 +219,18 @@ export default function FeedbackPage() {
                       </button>
                     ))}
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             )}
 
             {/* Main Form */}
-            <Card>
-              <CardHeader>
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
+              <div className="mb-6">
                 <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
                   Details
                 </h2>
-              </CardHeader>
-              <CardContent className="space-y-6">
+              </div>
+              <div className="space-y-6">
                 {/* Category */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -337,20 +333,20 @@ export default function FeedbackPage() {
                     </div>
                   )}
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
             {/* Technical Information */}
-            <Card>
-              <CardHeader>
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
+              <div className="mb-6">
                 <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
                   Technical Information
                 </h2>
                 <p className="text-gray-600 dark:text-gray-400">
                   This information helps us reproduce and fix technical issues.
                 </p>
-              </CardHeader>
-              <CardContent className="space-y-4">
+              </div>
+              <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Current Page URL
@@ -373,12 +369,11 @@ export default function FeedbackPage() {
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white text-xs"
                   />
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
             {/* Privacy Notice */}
-            <Card className="border-blue-200 dark:border-blue-800">
-              <CardContent className="p-6">
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-blue-200 dark:border-blue-800">
                 <div className="flex items-start gap-3">
                   <span className="text-2xl">🔒</span>
                   <div>
@@ -392,15 +387,14 @@ export default function FeedbackPage() {
                     </p>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
 
             {/* Submit Button */}
             <div className="flex justify-end">
-              <Button
+              <button
                 type="submit"
                 disabled={isSubmitting || !form.title || !form.description || !form.category}
-                className="px-8 py-3 text-lg"
+                className="px-8 py-3 text-lg bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-medium rounded-lg transition-colors duration-200"
               >
                 {isSubmitting ? (
                   <>
@@ -410,7 +404,7 @@ export default function FeedbackPage() {
                 ) : (
                   `Submit ${form.type === 'bug' ? 'Bug Report' : form.type === 'feature-request' ? 'Feature Request' : form.type === 'safety-concern' ? 'Safety Concern' : 'Feedback'}`
                 )}
-              </Button>
+              </button>
             </div>
           </form>
         </motion.div>
