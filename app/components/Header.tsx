@@ -11,17 +11,19 @@ import supabase from "../../utils/supabase";
 import { LaunchCountdown } from "./LaunchCountdown";
 
 // Core navigation items (always visible)
-const getCoreNavigation = (isLoggedIn: boolean) => [
+const getCoreNavigation = (isLoggedIn: boolean): Array<{ name: string; href: string; requiresAuth?: boolean }> => [
   { name: "header.navigation.about", href: "/about" },
   { name: "header.navigation.resources", href: "/resources" },
   { name: "header.navigation.support", href: "/support" },
   { name: "header.navigation.contact", href: "/contact" },
-  // Swap Incidents and Legal Help based on login status
+  // Always show incidents tab, but handle login redirect
+  { name: "header.navigation.incidents", href: "/incidents", requiresAuth: !isLoggedIn },
+  // Show Legal Help when not logged in
   ...(isLoggedIn 
-    ? [{ name: "header.navigation.incidents", href: "/incidents" }]
+    ? []
     : [{ name: "header.navigation.legalHelp", href: "/legal-help" }]
   ),
-] as const;
+];
 
 // Navigation groups with dropdowns
 const getNavigationGroups = (isLoggedIn: boolean) => ({
@@ -85,14 +87,52 @@ export const Logo = memo(() => {
 Logo.displayName = 'Logo';
 
 // Optimized navigation item with reduced motion support
-const NavItem = memo(({ item, isActive }: { item: { name: string; href: string }; isActive: boolean }) => {
+const NavItem = memo(({ item, isActive }: { item: { name: string; href: string; requiresAuth?: boolean }; isActive: boolean }) => {
   const shouldReduceMotion = useReducedMotion();
   const { t } = useTranslation();
+
+  const handleClick = (e: React.MouseEvent) => {
+    if (item.requiresAuth) {
+      e.preventDefault();
+      // Create a more elegant notification
+      const notification = document.createElement('div');
+      notification.className = 'fixed top-20 right-4 bg-blue-600 text-white px-6 py-3 rounded-lg shadow-lg z-50 transform translate-x-full transition-transform duration-300';
+      notification.innerHTML = `
+        <div class="flex items-center gap-3">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+          </svg>
+          <span>Please login to access the incidents page</span>
+        </div>
+      `;
+      
+      document.body.appendChild(notification);
+      
+      // Animate in
+      setTimeout(() => {
+        notification.classList.remove('translate-x-full');
+      }, 100);
+      
+      // Auto remove after 3 seconds
+      setTimeout(() => {
+        notification.classList.add('translate-x-full');
+        setTimeout(() => {
+          document.body.removeChild(notification);
+        }, 300);
+      }, 3000);
+      
+      // Redirect to login after a short delay
+      setTimeout(() => {
+        window.location.href = "/auth/login";
+      }, 500);
+    }
+  };
 
   return (
     <Link
       href={item.href}
       prefetch={false}
+      onClick={handleClick}
       className={`relative px-3 py-2 rounded-full text-sm font-medium will-change-colors transition-colors duration-200 group ${
         isActive
           ? "text-blue-900 dark:text-blue-100"
@@ -729,12 +769,50 @@ export const Header = () => {
                     {/* Core Navigation Items */}
                     {coreNavigation.map((item) => {
                       const isActive = pathname === item.href;
+                      const handleMobileClick = (e: React.MouseEvent) => {
+                        if (item.requiresAuth) {
+                          e.preventDefault();
+                          // Create a more elegant notification for mobile
+                          const notification = document.createElement('div');
+                          notification.className = 'fixed top-20 right-4 bg-blue-600 text-white px-6 py-3 rounded-lg shadow-lg z-50 transform translate-x-full transition-transform duration-300';
+                          notification.innerHTML = `
+                            <div class="flex items-center gap-3">
+                              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                              </svg>
+                              <span>Please login to access the incidents page</span>
+                            </div>
+                          `;
+                          
+                          document.body.appendChild(notification);
+                          
+                          // Animate in
+                          setTimeout(() => {
+                            notification.classList.remove('translate-x-full');
+                          }, 100);
+                          
+                          // Auto remove after 3 seconds
+                          setTimeout(() => {
+                            notification.classList.add('translate-x-full');
+                            setTimeout(() => {
+                              document.body.removeChild(notification);
+                            }, 300);
+                          }, 3000);
+                          
+                          // Redirect to login after a short delay
+                          setTimeout(() => {
+                            window.location.href = "/auth/login";
+                          }, 500);
+                        }
+                      };
+                      
                       return (
                         <li key={item.href} role="none">
                           <Link
                             href={item.href}
                             prefetch={false}
                             role="menuitem"
+                            onClick={handleMobileClick}
                             className={`relative block px-4 py-3 rounded-lg text-base font-medium will-change-colors transition-colors duration-200 group ${
                               isActive
                                 ? "bg-blue-50 text-blue-900 dark:bg-blue-900/30 dark:text-blue-100"

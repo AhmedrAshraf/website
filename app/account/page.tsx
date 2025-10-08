@@ -30,14 +30,17 @@ interface UserStats {
 }
 
 interface IncidentReport {
-  id: string;
-  title: string;
+  id: number;
+  type: string;
   description: string;
-  location: string;
-  severity: 'low' | 'medium' | 'high';
-  status: 'pending' | 'investigating' | 'resolved' | 'closed';
-  createdAt: string;
-  updatedAt: string;
+  latitude: number;
+  longitude: number;
+  address: string;
+  created_at: string;
+  status: string;
+  user_id?: string;
+  user_name?: string;
+  user_email?: string;
 }
 
 export default function AccountPage() {
@@ -54,6 +57,7 @@ export default function AccountPage() {
     incidentReports: 0,
   });
   const [incidentReports, setIncidentReports] = useState<IncidentReport[]>([]);
+  const [recentActivity, setRecentActivity] = useState<any[]>([]);
 
   useEffect(() => {
     const getUser = async () => {
@@ -67,66 +71,129 @@ export default function AccountPage() {
 
         setUser(user);
 
-        // Simulate loading user data
-        setTimeout(() => {
-          setProfile({
-            id: user.id,
-            name: user.user_metadata?.full_name || user.email || null,
-            email: user.email || '',
-            bio: null,
-            location: null,
-            pronouns: null,
-            isPrivate: false,
-            showEmail: false,
-            showLocation: false,
-            allowMessages: true,
-            createdAt: user.created_at || new Date().toISOString(),
-          });
+        // Load user profile data
+        setProfile({
+          id: user.id,
+          name: user.user_metadata?.full_name || user.email || null,
+          email: user.email || '',
+          bio: null,
+          location: null,
+          pronouns: null,
+          isPrivate: false,
+          showEmail: false,
+          showLocation: false,
+          allowMessages: true,
+          createdAt: user.created_at || new Date().toISOString(),
+        });
 
-          setStats({
-            totalBadges: 8,
-            communityPosts: 12,
-            resourcesShared: 5,
-            helpfulVotes: 34,
-            incidentReports: 3,
-          });
+        // Fetch all user data from database
+        const fetchUserData = async () => {
+          try {
+            // Fetch user's incident reports
+            const { data: incidents, error: incidentsError } = await supabase
+              .from('incidents')
+              .select('*')
+              .eq('user_id', user.id)
+              .order('created_at', { ascending: false });
 
-          // Simulate incident reports data
-          setIncidentReports([
-            {
-              id: '1',
-              title: 'Workplace Harassment Report',
-              description: 'Reported inappropriate behavior from supervisor',
-              location: 'Downtown Office Building',
-              severity: 'high',
-              status: 'investigating',
-              createdAt: '2024-01-15T10:30:00Z',
-              updatedAt: '2024-01-16T14:20:00Z',
-            },
-            {
-              id: '2',
-              title: 'Discrimination Incident',
-              description: 'Experienced discriminatory treatment during meeting',
-              location: 'Conference Room A',
-              severity: 'medium',
-              status: 'resolved',
-              createdAt: '2024-01-10T09:15:00Z',
-              updatedAt: '2024-01-12T16:45:00Z',
-            },
-            {
-              id: '3',
-              title: 'Unsafe Working Conditions',
-              description: 'Reported safety concerns in warehouse area',
-              location: 'Warehouse Section B',
-              severity: 'low',
-              status: 'closed',
-              createdAt: '2024-01-05T11:00:00Z',
-              updatedAt: '2024-01-08T10:30:00Z',
-            },
-          ]);
-          
-          setIsLoading(false);
-        }, 1000);
+            if (incidentsError) throw incidentsError;
+
+            // Fetch user's community posts
+            const { data: posts, error: postsError } = await supabase
+              .from('posts')
+              .select('*')
+              .eq('user_id', user.id);
+
+            if (postsError) throw postsError;
+
+            // Fetch user's post likes (helpful votes)
+            const { data: likes, error: likesError } = await supabase
+              .from('post_likes')
+              .select('*')
+              .eq('user_id', user.id);
+
+            if (likesError) throw likesError;
+
+            // Fetch user's comments (as resources shared)
+            const { data: comments, error: commentsError } = await supabase
+              .from('post_comments')
+              .select('*')
+              .eq('user_id', user.id);
+
+            if (commentsError) throw commentsError;
+
+            setIncidentReports(incidents || []);
+            
+            // Create recent activity from all user data
+            const activities = [];
+            
+            // Add recent posts
+            if (posts && posts.length > 0) {
+              posts.slice(0, 2).forEach(post => {
+                activities.push({
+                  action: 'Posted in',
+                  item: post.title,
+                  time: new Date(post.created_at).toLocaleDateString(),
+                  type: 'post',
+                  timestamp: new Date(post.created_at).getTime()
+                });
+              });
+            }
+            
+            // Add recent incidents
+            if (incidents && incidents.length > 0) {
+              incidents.slice(0, 2).forEach(incident => {
+                activities.push({
+                  action: 'Reported incident',
+                  item: incident.type,
+                  time: new Date(incident.created_at).toLocaleDateString(),
+                  type: 'incident',
+                  timestamp: new Date(incident.created_at).getTime()
+                });
+              });
+            }
+            
+            // Add recent comments
+            if (comments && comments.length > 0) {
+              comments.slice(0, 1).forEach(comment => {
+                activities.push({
+                  action: 'Commented on',
+                  item: 'Community Post',
+                  time: new Date(comment.created_at).toLocaleDateString(),
+                  type: 'comment',
+                  timestamp: new Date(comment.created_at).getTime()
+                });
+              });
+            }
+            
+            // Sort by timestamp and take the most recent 4
+            activities.sort((a, b) => b.timestamp - a.timestamp);
+            setRecentActivity(activities.slice(0, 4));
+            
+            // Update stats with real data
+            setStats({
+              totalBadges: 0, // Badges system not implemented yet
+              communityPosts: posts?.length || 0,
+              resourcesShared: comments?.length || 0, // Using comments as resources shared
+              helpfulVotes: likes?.length || 0,
+              incidentReports: incidents?.length || 0,
+            });
+          } catch (error) {
+            console.error('Error fetching user data:', error);
+            setIncidentReports([]);
+            setRecentActivity([]);
+            setStats({
+              totalBadges: 0,
+              communityPosts: 0,
+              resourcesShared: 0,
+              helpfulVotes: 0,
+              incidentReports: 0,
+            });
+          }
+        };
+
+        fetchUserData();
+        setIsLoading(false);
       } catch (error) {
         console.error('Error getting user:', error);
         router.push('/auth/login');
@@ -300,27 +367,39 @@ export default function AccountPage() {
                   </div>
                   <div className="p-6">
                     <div className="space-y-4">
-                      {[
-                        { action: 'Earned badge', item: 'Community Helper', time: '2 hours ago', type: 'badge' },
-                        { action: 'Posted in', item: 'Workplace Support Forum', time: '1 day ago', type: 'post' },
-                        { action: 'Downloaded', item: 'Digital Safety Toolkit', time: '3 days ago', type: 'download' },
-                        { action: 'Earned badge', item: 'First Post', time: '1 week ago', type: 'badge' },
-                      ].map((activity, index) => (
-                        <div key={index} className="flex items-center gap-3 py-2">
-                          <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white text-sm ${
-                            activity.type === 'badge' ? 'bg-yellow-500' :
-                            activity.type === 'post' ? 'bg-blue-500' : 'bg-green-500'
-                          }`}>
-                            {activity.type === 'badge' ? '🏆' : activity.type === 'post' ? '💬' : '📥'}
-                          </div>
-                          <div className="flex-1">
-                            <p className="text-sm text-gray-900 dark:text-white">
-                              {activity.action} <span className="font-medium">{activity.item}</span>
-                            </p>
-                            <p className="text-xs text-gray-500 dark:text-gray-400">{activity.time}</p>
-                          </div>
+                      {recentActivity.length === 0 ? (
+                        <div className="text-center py-8">
+                          <div className="text-gray-400 text-4xl mb-4">📊</div>
+                          <h4 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+                            No Recent Activity
+                          </h4>
+                          <p className="text-gray-600 dark:text-gray-400">
+                            Start engaging with the community to see your activity here.
+                          </p>
                         </div>
-                      ))}
+                      ) : (
+                        recentActivity.map((activity, index) => (
+                          <div key={index} className="flex items-center gap-3 py-2">
+                            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white text-sm ${
+                              activity.type === 'badge' ? 'bg-yellow-500' :
+                              activity.type === 'post' ? 'bg-blue-500' :
+                              activity.type === 'incident' ? 'bg-red-500' :
+                              activity.type === 'comment' ? 'bg-green-500' : 'bg-gray-500'
+                            }`}>
+                              {activity.type === 'badge' ? '🏆' : 
+                               activity.type === 'post' ? '💬' : 
+                               activity.type === 'incident' ? '🚨' :
+                               activity.type === 'comment' ? '💭' : '📊'}
+                            </div>
+                            <div className="flex-1">
+                              <p className="text-sm text-gray-900 dark:text-white">
+                                {activity.action} <span className="font-medium">{activity.item}</span>
+                              </p>
+                              <p className="text-xs text-gray-500 dark:text-gray-400">{activity.time}</p>
+                            </div>
+                          </div>
+                        ))
+                      )}
                     </div>
                   </div>
                 </div>
@@ -364,14 +443,8 @@ export default function AccountPage() {
                         </div>
                       ) : (
                         incidentReports.map((report) => {
-                          const severityColors = {
-                            low: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300',
-                            medium: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300',
-                            high: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300'
-                          };
-                          
                           const statusColors = {
-                            pending: 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300',
+                            active: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300',
                             investigating: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300',
                             resolved: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300',
                             closed: 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300'
@@ -381,13 +454,10 @@ export default function AccountPage() {
                             <div key={report.id} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-shadow">
                               <div className="flex justify-between items-start mb-3">
                                 <h4 className="text-lg font-medium text-gray-900 dark:text-white">
-                                  {report.title}
+                                  {report.type || 'Incident Report'}
                                 </h4>
                                 <div className="flex gap-2">
-                                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${severityColors[report.severity]}`}>
-                                    {report.severity.toUpperCase()}
-                                  </span>
-                                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${statusColors[report.status]}`}>
+                                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${statusColors[report.status.toLowerCase()] || statusColors.closed}`}>
                                     {report.status.charAt(0).toUpperCase() + report.status.slice(1)}
                                   </span>
                                 </div>
@@ -398,8 +468,8 @@ export default function AccountPage() {
                               </p>
                               
                               <div className="flex justify-between items-center text-sm text-gray-500 dark:text-gray-400">
-                                <span>📍 {report.location}</span>
-                                <span>📅 {new Date(report.createdAt).toLocaleDateString()}</span>
+                                <span>📍 {report.address || 'Location not specified'}</span>
+                                <span>📅 {new Date(report.created_at).toLocaleDateString()}</span>
                               </div>
                             </div>
                           );
@@ -584,10 +654,10 @@ export default function AccountPage() {
                           <button className="w-full sm:w-auto px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-700">
                             Change Password
                           </button>
-                          <button className="w-full sm:w-auto px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-700">
+                          {/* <button className="w-full sm:w-auto px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-700 ml-4">
                             Enable Two-Factor Authentication
-                          </button>
-                          <button className="w-full sm:w-auto px-4 py-2 text-sm font-medium text-red-600 bg-white border border-red-600 rounded-lg hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-500 dark:bg-gray-800 dark:text-red-400 dark:border-red-400 dark:hover:bg-red-900/20">
+                          </button> */}
+                          <button className="w-full sm:w-auto px-4 py-2 text-sm font-medium text-red-600 bg-white border border-red-600 rounded-lg hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-500 dark:bg-gray-800 dark:text-red-400 dark:border-red-400 dark:hover:bg-red-900/20 ml-4">
                             Delete Account
                           </button>
                         </div>

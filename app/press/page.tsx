@@ -141,12 +141,12 @@ export default function PressPage() {
             Media resources, company information, and brand assets for journalists, 
             partners, and content creators covering DESIST.
           </p>
-          <button 
+          {/* <button 
             className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200 shadow-lg hover:shadow-xl"
             onClick={() => window.open('/press/complete-press-kit.zip', '_blank')}
           >
             📥 Download Complete Press Kit (ZIP)
-          </button>
+          </button> */}
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8">
@@ -166,13 +166,11 @@ export default function PressPage() {
                 </p>
                 <div className="grid md:grid-cols-2 gap-4">
                   {Object.entries(companyFacts).map(([key, value]) => (
-                    <div key={key} className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                    <div key={key} className="flex p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
                       <span className="font-medium text-gray-600 dark:text-gray-400 capitalize">
                         {key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}:
                       </span>
-                      <span className="text-gray-900 dark:text-white font-semibold">
-                        {value}
-                      </span>
+                      <span className="text-gray-900 dark:text-white font-semibold ml-1">{value}</span>
                     </div>
                   ))}
                 </div>
@@ -238,12 +236,11 @@ export default function PressPage() {
             </div>
 
             {/* Brand Assets */}
-            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
+            {/* <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
               <div className="mb-6">
                 <h2 className="text-xl font-bold text-gray-900 dark:text-white">Brand Assets</h2>
               </div>
               <div className="space-y-6">
-                {/* Logos */}
                 <div>
                   <h3 className="font-semibold text-gray-900 dark:text-white mb-3">Logos</h3>
                   <div className="grid md:grid-cols-2 gap-4">
@@ -273,7 +270,6 @@ export default function PressPage() {
                   </div>
                 </div>
 
-                {/* Brand Colors */}
                 <div>
                   <h3 className="font-semibold text-gray-900 dark:text-white mb-3">Brand Colors</h3>
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
@@ -296,7 +292,6 @@ export default function PressPage() {
                   </div>
                 </div>
 
-                {/* Screenshots */}
                 <div>
                   <h3 className="font-semibold text-gray-900 dark:text-white mb-3">Screenshots</h3>
                   <div className="grid md:grid-cols-2 gap-4">
@@ -323,7 +318,7 @@ export default function PressPage() {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
 
           {/* Sidebar */}
