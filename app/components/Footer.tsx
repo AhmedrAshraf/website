@@ -14,9 +14,9 @@ export function Footer() {
       aria-label="Footer"
     >
       <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
           {/* Logo and Description */}
-          <div className="col-span-1 md:col-span-2">
+          <div className="col-span-1 lg:col-span-2">
             <div className="inline-block mb-4">
               <Logo />
             </div>
@@ -90,12 +90,12 @@ export function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-white font-semibold mb-4 text-lg">{t('footer.quickLinks.title')}</h3>
+            <h3 className="text-gray-900 dark:text-white font-semibold mb-4 text-lg">{t('footer.quickLinks.title')}</h3>
             <ul className="space-y-2">
               <li>
                 <Link
                   href="/about"
-                  className="text-gray-900 dark:text-white transition-colors duration-300"
+                  className="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
                 >
                   {t('footer.quickLinks.about')}
                 </Link>
@@ -103,7 +103,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/resources"
-                  className="text-gray-900 dark:text-white transition-colors duration-300"
+                  className="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
                 >
                   {t('footer.quickLinks.resources')}
                 </Link>
@@ -111,7 +111,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/contact"
-                  className="text-gray-900 dark:text-white transition-colors duration-300"
+                  className="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
                 >
                   {t('footer.quickLinks.contact')}
                 </Link>
@@ -119,9 +119,87 @@ export function Footer() {
               <li>
                 <Link
                   href="/privacy"
-                  className="text-gray-900 dark:text-white transition-colors duration-300"
+                  className="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
                 >
                   {t('footer.quickLinks.privacy')}
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Community */}
+          <div>
+            <h3 className="text-gray-900 dark:text-white font-semibold mb-4 text-lg">Community</h3>
+            <ul className="space-y-2">
+              <li>
+                <Link
+                  href="/community"
+                  className="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
+                >
+                  Community Home
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/community/campaigns"
+                  className="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
+                >
+                  Campaigns
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/incidents"
+                  className="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
+                >
+                  Incident Reports
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/events"
+                  className="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
+                >
+                  Events
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Support */}
+          <div>
+            <h3 className="text-gray-900 dark:text-white font-semibold mb-4 text-lg">Support</h3>
+            <ul className="space-y-2">
+              <li>
+                <Link
+                  href="/support"
+                  className="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
+                >
+                  Support Center
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/support/emergency"
+                  className="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
+                >
+                  Emergency Resources
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/support/feedback"
+                  className="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
+                >
+                  Feedback
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/legal-help"
+                  className="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
+                >
+                  Legal Help
                 </Link>
               </li>
             </ul>
@@ -147,10 +225,52 @@ export function Footer() {
                 </svg>
                 <a
                   href="mailto:support@wedesist.com"
-                  className="text-gray-900 dark:text-white transition-colors duration-300"
+                  className="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
                 >
                   {t('footer.contact.email')}
                 </a>
+              </li>
+              <li className="flex items-center space-x-2">
+                <svg
+                  className="w-5 h-5 text-gray-900 dark:text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                <span className="text-gray-900 dark:text-white">
+                  24/7 Support Available
+                </span>
+              </li>
+              <li className="flex items-center space-x-2">
+                <svg
+                  className="w-5 h-5 text-gray-900 dark:text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
+                <span className="text-gray-900 dark:text-white">
+                  Global Community
+                </span>
               </li>
             </ul>
           </div>
