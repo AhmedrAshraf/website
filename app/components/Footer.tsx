@@ -127,16 +127,16 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Community */}
+          {/* Quick Links */}
           <div>
-            <h3 className="text-gray-900 dark:text-white font-semibold mb-4 text-lg">Community</h3>
-            <ul className="space-y-2">
+            {/* <h3 className="text-gray-900 dark:text-white font-semibold mb-4 text-lg">Quick Links</h3> */}
+            <ul className="space-y-2 mt-10">
               <li>
-                <Link
-                  href="/community"
+              <Link
+                  href="/press"
                   className="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
                 >
-                  Community Home
+                  Press Kit
                 </Link>
               </li>
               <li>
@@ -149,57 +149,18 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/incidents"
+                  href="/features/stealth-mode"
                   className="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
                 >
-                  Incident Reports
+                  Stealth Mode
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/events"
+              <Link
+                  href="/community"
                   className="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
                 >
-                  Events
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Support */}
-          <div>
-            <h3 className="text-gray-900 dark:text-white font-semibold mb-4 text-lg">Support</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link
-                  href="/support"
-                  className="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
-                >
-                  Support Center
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/support/emergency"
-                  className="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
-                >
-                  Emergency Resources
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/support/feedback"
-                  className="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
-                >
-                  Feedback
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/legal-help"
-                  className="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
-                >
-                  Legal Help
+                  Community
                 </Link>
               </li>
             </ul>
