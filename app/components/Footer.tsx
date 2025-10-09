@@ -9,12 +9,12 @@ export function Footer() {
   const year = new Date().getFullYear();
   return (
     <footer 
-      className="bg-white/50 dark:bg-gray-950/50 text-gray-900 dark:text-white"
+      className="bg-white/50 dark:bg-gray-950 text-gray-900 dark:text-white"
       role="contentinfo"
       aria-label="Footer"
     >
       <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
           {/* Logo and Description */}
           <div className="col-span-1 lg:col-span-2">
             <div className="inline-block mb-4">

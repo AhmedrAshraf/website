@@ -14,6 +14,7 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [emailSent, setEmailSent] = useState(false);
   const router = useRouter();
 
   const handleRegister = async (e: React.FormEvent) => {
@@ -47,14 +48,20 @@ export default function RegisterPage() {
 
       if (error) throw error;
 
-      // Save user ID to localStorage (even before email verification)
+      // Check if email confirmation is required
+      if (data.user && !data.user.email_confirmed_at) {
+        setEmailSent(true);
+        setError(null);
+        return;
+      }
+
+      // If email is already confirmed, proceed normally
       if (data.user) {
         localStorage.setItem('userId', data.user.id);
         localStorage.setItem('userEmail', data.user.email || '');
         localStorage.setItem('userName', fullName);
+        router.push("/");
       }
-
-      router.push("/");
     } catch (error) {
       setError(error instanceof Error ? error.message : "An unknown error occurred");
     } finally {
@@ -170,7 +177,51 @@ export default function RegisterPage() {
               
               {/* Card Content */}
               <div className="relative p-8">
-                <form onSubmit={handleRegister} className="space-y-5">
+                {emailSent ? (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="text-center space-y-6"
+                  >
+                    <div className="w-16 h-16 bg-green-100 dark:bg-green-900/20 rounded-full flex items-center justify-center mx-auto">
+                      <svg className="w-8 h-8 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                        Check Your Email
+                      </h2>
+                      <p className="text-gray-600 dark:text-gray-400 mb-4">
+                        We've sent a confirmation link to <strong>{email}</strong>
+                      </p>
+                      <p className="text-sm text-gray-500 dark:text-gray-500 mb-6">
+                        Click the link in your email to activate your account. The link will expire in 24 hours.
+                      </p>
+                    </div>
+                    <div className="space-y-3">
+                      <button
+                        onClick={() => {
+                          setEmailSent(false);
+                          setError(null);
+                        }}
+                        className="w-full py-3 px-4 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-xl transition-colors"
+                      >
+                        Back to Registration
+                      </button>
+                      <p className="text-sm text-gray-500 dark:text-gray-500">
+                        Didn't receive the email? Check your spam folder or{" "}
+                        <button
+                          onClick={handleRegister}
+                          className="text-primary-600 hover:text-primary-500 font-medium"
+                        >
+                          resend confirmation
+                        </button>
+                      </p>
+                    </div>
+                  </motion.div>
+                ) : (
+                  <form onSubmit={handleRegister} className="space-y-5">
                   {error && (
                     <motion.div
                       initial={{ opacity: 0, scale: 0.95 }}
@@ -340,40 +391,45 @@ export default function RegisterPage() {
                     </Button>
                   </motion.div>
                 </form>
+                )}
 
-                {/* Divider */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.6, delay: 1 }}
-                  className="mt-8"
-                >
-                  <div className="relative">
-                    <div className="absolute inset-0 flex items-center">
-                      <div className="w-full border-t border-gray-200 dark:border-gray-700" />
-                    </div>
-                    <div className="relative flex justify-center text-sm">
-                      <span className="px-4 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400 font-medium">
-                        Already have an account?
-                      </span>
-                    </div>
-                  </div>
-                </motion.div>
+                {!emailSent && (
+                  <>
+                    {/* Divider */}
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.6, delay: 1 }}
+                      className="mt-8"
+                    >
+                      <div className="relative">
+                        <div className="absolute inset-0 flex items-center">
+                          <div className="w-full border-t border-gray-200 dark:border-gray-700" />
+                        </div>
+                        <div className="relative flex justify-center text-sm">
+                          <span className="px-4 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400 font-medium">
+                            Already have an account?
+                          </span>
+                        </div>
+                      </div>
+                    </motion.div>
 
-                {/* Sign In Link */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 1.1 }}
-                  className="mt-6 text-center"
-                >
-                  <Link
-                    href="/auth/login"
-                    className="inline-flex items-center justify-center w-full py-3 px-4 border border-gray-200 dark:border-gray-600 rounded-xl text-sm font-semibold text-gray-700 dark:text-gray-300 bg-white/50 dark:bg-gray-700/50 hover:bg-gray-50 dark:hover:bg-gray-600 transition-all duration-200 hover:shadow-md"
-                  >
-                    Sign in to your account
-                  </Link>
-                </motion.div>
+                    {/* Sign In Link */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: 1.1 }}
+                      className="mt-6 text-center"
+                    >
+                      <Link
+                        href="/auth/login"
+                        className="inline-flex items-center justify-center w-full py-3 px-4 border border-gray-200 dark:border-gray-600 rounded-xl text-sm font-semibold text-gray-700 dark:text-gray-300 bg-white/50 dark:bg-gray-700/50 hover:bg-gray-50 dark:hover:bg-gray-600 transition-all duration-200 hover:shadow-md"
+                      >
+                        Sign in to your account
+                      </Link>
+                    </motion.div>
+                  </>
+                )}
               </div>
             </motion.div>
 
